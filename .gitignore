@@ -1,6 +1,6 @@
-/create-schema.php
-/data/data.csv
-/data/absorption_data.csv
-/import.php
-/screenshot_to_csv.php
-/vendor
+create-schema.php
+data/data.csv
+data/absorption_data.sqlite
+import.php
+screenshot_to_csv.php
+vendor
