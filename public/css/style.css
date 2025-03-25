@@ -1,0 +1,69 @@
+/* Custom styles for Product Analysis Tool */
+
+/* Add space to the top of the page */
+body {
+    padding-top: 20px;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Make the footer stick to the bottom */
+main {
+    flex: 1;
+}
+
+/* Card styling */
+.card {
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+    margin-bottom: 1.5rem;
+}
+
+.card-header {
+    font-weight: 500;
+}
+
+/* Table styling */
+.table-responsive {
+    border-radius: 0.25rem;
+    overflow: hidden;
+}
+
+.table th {
+    background-color: #f8f9fa;
+}
+
+/* Chart container */
+canvas {
+    max-width: 100%;
+}
+
+/* Button styling */
+.btn-primary {
+    background-color: #0066cc;
+    border-color: #0066cc;
+}
+
+.btn-primary:hover {
+    background-color: #0052a3;
+    border-color: #0052a3;
+}
+
+/* Navbar customization */
+.navbar-brand {
+    font-weight: 600;
+}
+
+/* Make checkboxes more visible */
+.form-check-input {
+    width: 1.2em;
+    height: 1.2em;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .container {
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+}

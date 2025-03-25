@@ -1,0 +1,21 @@
+{
+    "name": "zrebec/absorption-data",
+    "description": "Absorption data application",
+    "type": "project",
+    "require": {
+        "php": ">=7.4",
+        "twig/twig": "^3.0",
+        "catfan/medoo": "^2.1",
+        "slim/slim": "^4.10",
+        "slim/psr7": "^1.5",
+        "slim/twig-view": "^3.3"
+    },
+    "autoload": {
+        "psr-4": {
+            "App\\": "src/"
+        }
+    },
+    "scripts": {
+        "import": "php import.php"
+    }
+}
