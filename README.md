@@ -1,12 +1,12 @@
 # Product Analysis Tool
 
-A web application for comparing and analyzing product absorption capacity data.
+A web application for comparing and analyzing product resuts data.
 
 ## Overview
 
 This tool allows users to:
 - View a list of products with their specifications
-- Compare multiple products based on their absorption capacity
+- Compare multiple products based on their measurements results
 - Analyze detailed product performance across different testing levels
 
 ## Tech Stack
@@ -36,7 +36,7 @@ project/
 ├── templates/            # Twig templates
 ├── vendor/               # Composer dependencies
 └── data/                 # Data directory
-    ├── absorption_data.sqlite  # SQLite database
+    ├── data.sqlite  # SQLite database
     └── data.csv          # Original CSV data
 
 ## Installation
