@@ -43,8 +43,11 @@ class Product
         ]);
 
         $measurementValues = array_column($measurements, 'value');
+        
+        $product['measurement_count'] = count($measurementValues);;
         $product['max_capacity'] = $measurementValues ? max($measurementValues) : 0;
-        $product['average_capacity'] = $measurementValues ? array_sum($measurementValues) / count($measurementValues) : 0;
+        $product['average_capacity'] = $measurementValues ? floor(array_sum($measurementValues) / count($measurementValues)) - $product['net_weight'] : 0;
+        $product['safe_use'] = floor($product['average_capacity'] / 250);
     }
     
     /**

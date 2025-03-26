@@ -19,8 +19,10 @@
                                 <th>Compare</th>
                                 <th>Product</th>
                                 <th>Net Weight</th>
+                                <th>Counter</th>
                                 <th>Max Capacity</th>
                                 <th>Avg. Capacity</th>
+                                <th>Safe use</th>
                                 <th>Design</th>
                                 <th>Actions</th>
                             </tr>
@@ -34,10 +36,32 @@
                                                name="product[]" value="{{ product.id }}" id="product-{{ product.id }}">
                                     </div>
                                 </td>
-                                <td>{{ product.brand }}</td>
+                                <td>
+                                    <a href="/product/{{ product.id }}">{{ product.brand }}</a>
+                                </td>
                                 <td>{{ product.net_weight }} g</td>
+                                <td>
+                                    {{ product.measurement_count|default(0) }} 
+                                    {% if product.measurement_count == 1 %}
+                                        meranie
+                                    {% elseif product.measurement_count > 1 and product.measurement_count < 5 %}
+                                        merania
+                                    {% else %}
+                                        meraní
+                                    {% endif %}
+                                </td>
                                 <td>{{ product.max_capacity|default(0) }} ml</td>
-                                <td>{{ product.average_capacity|number_format(2) }} ml</td>
+                                <td>{{ product.average_capacity|number_format(0) }} ml</td>
+                                <td>
+                                    {{ product.safe_use|default('0') }} 
+                                    {% if product.safe_use == 1 %}
+                                        použitie
+                                    {% elseif product.safe_use > 1 and product.safe_use < 5 %}
+                                        použitia
+                                    {% else %}
+                                        použití
+                                    {% endif %}
+                                </td>
                                 <td>{{ product.design|default('-') }}</td>
                                 <td>
                                     <a href="/product/{{ product.id }}" class="btn btn-sm btn-info">
