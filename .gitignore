@@ -1,6 +1,5 @@
-create-schema.php
-data/data.csv
-data/absorption_data.sqlite
-import.php
-screenshot_to_csv.php
+data/products.csv
+data/results.csv
+data/init_data.json
+data/data.sqlite
 vendor
