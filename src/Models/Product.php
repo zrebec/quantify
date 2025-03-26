@@ -13,7 +13,7 @@ class Product
     }
     
     /**
-     * Get all products with their average absorption capacity
+     * Get all products with their average results capacity
      * 
      * @return array List of products
      */
@@ -51,7 +51,7 @@ class Product
     }
     
     /**
-     * Get product by ID with all absorption results
+     * Get product by ID with all results
      * 
      * @param int $id Product ID
      * @return array|null Product data or null if not found
@@ -84,7 +84,7 @@ class Product
         $product['results'] = array_map(function ($result, $index) {
             return [
                 'measurement_number' => $index + 1,
-                'absorption_value' => $result['value']
+                'result_value' => $result['value']
             ];
         }, $results, array_keys($results));
     

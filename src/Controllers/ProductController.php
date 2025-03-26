@@ -34,7 +34,7 @@ class ProductController
     }
     
     /**
-     * Show a single product with its absorption data
+     * Show a single product with its results data
      */
     public function showProduct($request, $response, $args) {
         $productId = $args['id'];

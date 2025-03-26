@@ -1,6 +1,6 @@
 <div class="card mb-4">
     <div class="card-header bg-info text-white">
-        <h5 class="mb-0">Detailed Absorption Data</h5>
+        <h5 class="mb-0">Detailed Usage Data</h5>
     </div>
     <div class="card-body">
         <div class="table-responsive">
@@ -8,7 +8,7 @@
                 <thead>
                     <tr>
                         <th>Measurement</th>
-                        <th>Absorption (ml)</th>
+                        <th>Usage (ml)</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -16,7 +16,7 @@
                         {% for result in product.results %}
                         <tr>
                             <td>{{ product.brand }} - Measurement {{ result.measurement_number }}</td>
-                            <td>{{ result.absorption_value }} ml</td>
+                            <td>{{ result.result_value }} ml</td>
                         </tr>
                         {% endfor %}
                     {% endfor %}

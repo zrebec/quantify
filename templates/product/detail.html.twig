@@ -44,15 +44,15 @@
 			<div class="col-md-8">
 				<div class="card mb-4">
 					<div class="card-header bg-info text-white">
-						<h5 class="mb-0">Absorption Capacity Analysis</h5>
+						<h5 class="mb-0">Usage Capacity Analysis</h5>
 					</div>
 					<div class="card-body">
 						{% include 'partials/chart.html.twig' with {
-    						title: 'Product Absorption Capacity by Level',
-    						chart_id: 'absorptionChart',
+    						title: 'Product Usage Capacity by Level',
+    						chart_id: 'resultsChart',
 							labels: product.chart_data.labels,
 							datasets: [{
-								label: 'Absorption Capacity (ml)',
+								label: 'Usage Capacity (ml)',
 								data: product.chart_data.values,
 								borderColor: 'rgba(54, 162, 235, 1)',
 								borderWidth: 2,
@@ -76,7 +76,7 @@
 								<thead>
 									<tr>
 										<th>Measurement</th>
-										<th>Absorption Value (ml)</th>
+										<th>Usage Value (ml)</th>
 									</tr>
 								</thead>
 								<tbody>
@@ -84,7 +84,7 @@
 										<tr>
 											<td>Measurement
 												{{ result.measurement_number }}</td>
-											<td>{{ result.absorption_value }}
+											<td>{{ result.result_value }}
 												ml</td>
 										</tr>
 									{% endfor %}

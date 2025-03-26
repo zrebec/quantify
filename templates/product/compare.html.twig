@@ -6,11 +6,11 @@
 {% block content %}
 
 {% set colors = [
-	{ 'border': 'rgba(54, 162, 235, 1)', 'background': 'rgba(54, 162, 235, 0.2)' },
-	{ 'border': 'rgba(255, 99, 132, 1)', 'background': 'rgba(255, 99, 132, 0.2)' },
-	{ 'border': 'rgba(75, 192, 192, 1)', 'background': 'rgba(75, 192, 192, 0.2)' },
-	{ 'border': 'rgba(255, 206, 86, 1)', 'background': 'rgba(255, 206, 86, 0.2)' },
-	{ 'border': 'rgba(153, 102, 255, 1)', 'background': 'rgba(153, 102, 255, 0.2)' }
+    { 'border': 'rgba(54, 162, 235, 1)', 'background': 'rgba(54, 162, 235, 0.2)' },
+    { 'border': 'rgba(255, 99, 132, 1)', 'background': 'rgba(255, 99, 132, 0.2)' },
+    { 'border': 'rgba(75, 192, 192, 1)', 'background': 'rgba(75, 192, 192, 0.2)' },
+    { 'border': 'rgba(255, 206, 86, 1)', 'background': 'rgba(255, 206, 86, 0.2)' },
+    { 'border': 'rgba(153, 102, 255, 1)', 'background': 'rgba(153, 102, 255, 0.2)' }
 ] %}
 
 <div class="container mt-4">
@@ -57,58 +57,4 @@
         <a href="/" class="btn btn-secondary">Back to Product List</a>
     </div>
 </div>
-{% endblock %}
-
-{% block scripts %}
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        const ctx = document.getElementById('comparisonChart').getContext('2d');
-
-        // Data for the chart
-        const chartData = {
-            labels: {{ comparison.comparison_data.labels|json_encode|raw }},
-            datasets: {{ datasets|json_encode|raw }}
-        };
-
-        // Create the chart
-        const chart = new Chart(ctx, {
-            type: 'line',
-            data: chartData,
-            options: {
-                responsive: true,
-                plugins: {
-                    title: {
-                        display: true,
-                        text: 'Product Measurement Comparison (ml)',
-                        font: {
-                            size: 16
-                        }
-                    },
-                    tooltip: {
-                        callbacks: {
-                            label: function (context) {
-                                return `${context.dataset.label}: ${context.parsed.y} ml`;
-                            }
-                        }
-                    }
-                },
-                scales: {
-                    y: {
-                        beginAtZero: true,
-                        title: {
-                            display: true,
-                            text: 'Absorption (ml)'
-                        }
-                    },
-                    x: {
-                        title: {
-                            display: true,
-                            text: 'Measurements'
-                        }
-                    }
-                }
-            }
-        });
-    });
-</script>
 {% endblock %}

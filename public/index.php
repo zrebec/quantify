@@ -1,6 +1,6 @@
 <?php
 /**
- * Front controller for the Absorption Data application
+ * Front controller for the Prodct Data application
  */
 
 use Slim\Factory\AppFactory;
@@ -29,7 +29,7 @@ $app->add($twig_middleware);
 // Initialize database connection
 $db = new Medoo([
     'type' => 'sqlite',
-    'database' => __DIR__ . '/../data/absorption_data.sqlite'
+    'database' => __DIR__ . '/../data/data.sqlite'
 ]);
 
 // Define routes
