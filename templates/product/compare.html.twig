@@ -1,96 +1,58 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Product Comparison{% endblock %}
+{% block title %}Product Comparison
+{% endblock %}
 
 {% block content %}
+
+{% set colors = [
+	{ 'border': 'rgba(54, 162, 235, 1)', 'background': 'rgba(54, 162, 235, 0.2)' },
+	{ 'border': 'rgba(255, 99, 132, 1)', 'background': 'rgba(255, 99, 132, 0.2)' },
+	{ 'border': 'rgba(75, 192, 192, 1)', 'background': 'rgba(75, 192, 192, 0.2)' },
+	{ 'border': 'rgba(255, 206, 86, 1)', 'background': 'rgba(255, 206, 86, 0.2)' },
+	{ 'border': 'rgba(153, 102, 255, 1)', 'background': 'rgba(153, 102, 255, 0.2)' }
+] %}
+
 <div class="container mt-4">
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="/">Products</a></li>
+            <li class="breadcrumb-item">
+                <a href="/">Products</a>
+            </li>
             <li class="breadcrumb-item active">Compare Products</li>
         </ol>
     </nav>
 
-    <div class="card mb-4">
-        <div class="card-header bg-primary text-white">
-            <h5 class="mb-0">Product Comparison</h5>
+    <div class="row">
+        <div class="col-md-6">
+            {% set datasets = [] %}
+            {% for dataset in comparison.comparison_data.datasets %}
+                {% set dataset_with_colors = dataset|merge({
+                    'borderColor': colors[loop.index0 % colors|length].border,
+                    'backgroundColor': colors[loop.index0 % colors|length].background
+                }) %}
+                {% set datasets = datasets|merge([dataset_with_colors]) %}
+            {% endfor %}
+
+            {% include 'partials/chart.html.twig' with {
+                'title': 'Product measurements comparison',
+                'chart_id': 'comparisonChart',
+                'labels': comparison.comparison_data.labels,
+                'datasets': datasets,
+                'gradient': false
+            } %}
         </div>
-        <div class="card-body">
-            <canvas id="comparisonChart" width="400" height="300"></canvas>
-        </div>
-    </div>
-    
-    <div class="card mb-4">
-        <div class="card-header bg-success text-white">
-            <h5 class="mb-0">Product Feature Comparison</h5>
-        </div>
-        <div class="card-body">
-            <div class="table-responsive">
-                <table class="table table-striped table-hover">
-                    <thead>
-                        <tr>
-                            <th>Product</th>
-                            <th>Net Weight</th>
-                            <th>Design</th>
-                            <th>Max Level</th>
-                            <th>Average Capacity</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for product in comparison.products %}
-                        <tr>
-                            <td>
-                                <a href="/product/{{ product.id }}">{{ product.brand }}</a>
-                            </td>
-                            <td>{{ product.net_weight }} g</td>
-                            <td>{{ product.design|default('-') }}</td>
-                            <td>{{ product.max_capacity }}</td>
-                            <td>{{ product.average_capacity }} ml</td>
-                        </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
-            </div>
+        <div class="col-md-6">
+            {% include 'partials/measurement_table.html.twig' %}
         </div>
     </div>
-    
-    <div class="card">
-        <div class="card-header bg-info text-white">
-            <h5 class="mb-0">Detailed Absorption Data</h5>
-        </div>
-        <div class="card-body">
-            <div class="row">
-                {% for product in comparison.products %}
-                <div class="col-md-4 mb-4">
-                    <div class="card h-100">
-                        <div class="card-header">
-                            <h6 class="mb-0">{{ product.code }}</h6>
-                        </div>
-                        <div class="card-body">
-                            <table class="table table-sm">
-                                <thead>
-                                    <tr>
-                                        <th>Measurement</th>
-                                        <th>Absorption (ml)</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {% for result in product.results %}
-                                    <tr>
-                                        <td>Measurement {{ result.measurement_number }}</td>
-                                        <td>{{ result.absorption_value }}</td>
-                                    </tr>
-                                    {% endfor %}
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-                {% endfor %}
-            </div>
+
+    <div class="row mt-4">
+        <div class="col-12">
+            {% include 'partials/feature_table.html.twig' %}
         </div>
     </div>
-    
+
     <div class="mt-4">
         <a href="/" class="btn btn-secondary">Back to Product List</a>
     </div>
@@ -99,38 +61,15 @@
 
 {% block scripts %}
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('DOMContentLoaded', function () {
         const ctx = document.getElementById('comparisonChart').getContext('2d');
-        
+
         // Data for the chart
         const chartData = {
             labels: {{ comparison.comparison_data.labels|json_encode|raw }},
-            datasets: []
+            datasets: {{ datasets|json_encode|raw }}
         };
-        
-        {% set colors = [
-            { 'border': 'rgba(54, 162, 235, 1)', 'background': 'rgba(54, 162, 235, 0.2)' },
-            { 'border': 'rgba(255, 99, 132, 1)', 'background': 'rgba(255, 99, 132, 0.2)' },
-            { 'border': 'rgba(75, 192, 192, 1)', 'background': 'rgba(75, 192, 192, 0.2)' },
-            { 'border': 'rgba(255, 206, 86, 1)', 'background': 'rgba(255, 206, 86, 0.2)' },
-            { 'border': 'rgba(153, 102, 255, 1)', 'background': 'rgba(153, 102, 255, 0.2)' }
-        ] %}
 
-        // Colors for the datasets
-        const colors = {{ colors|json_encode|raw }};
-
-        // Build datasets
-        {% for dataset in comparison.comparison_data.datasets %}
-            chartData.datasets.push({
-                label: '{{ dataset.label }}',
-                data: {{ dataset.data|json_encode|raw }},
-                backgroundColor: colors[{{ loop.index0 % colors|length }}].background,
-                borderColor: colors[{{ loop.index0 % colors|length }}].border,
-                borderWidth: 2,
-                pointRadius: 5
-            });
-        {% endfor %}
-        
         // Create the chart
         const chart = new Chart(ctx, {
             type: 'line',
@@ -147,7 +86,7 @@
                     },
                     tooltip: {
                         callbacks: {
-                            label: function(context) {
+                            label: function (context) {
                                 return `${context.dataset.label}: ${context.parsed.y} ml`;
                             }
                         }

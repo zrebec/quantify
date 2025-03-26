@@ -1,0 +1,33 @@
+<div class="card mb-4">
+    <div class="card-header bg-success text-white">
+        <h5 class="mb-0">Product Feature Comparison</h5>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th>Product</th>
+                        <th>Net Weight</th>
+                        <th>Design</th>
+                        <th>Max Level</th>
+                        <th>Average Capacity</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for product in comparison.products %}
+                    <tr>
+                        <td>
+                            <a href="/product/{{ product.id }}">{{ product.brand }}</a>
+                        </td>
+                        <td>{{ product.net_weight }} g</td>
+                        <td>{{ product.design|default('-') }}</td>
+                        <td>{{ product.max_capacity }} ml</td>
+                        <td>{{ product.average_capacity|round(2, 'floor') }} ml</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

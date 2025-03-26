@@ -1,0 +1,27 @@
+<div class="card mb-4">
+    <div class="card-header bg-info text-white">
+        <h5 class="mb-0">Detailed Absorption Data</h5>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Measurement</th>
+                        <th>Absorption (ml)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for product in comparison.products %}
+                        {% for result in product.results %}
+                        <tr>
+                            <td>{{ product.brand }} - Measurement {{ result.measurement_number }}</td>
+                            <td>{{ result.absorption_value }} ml</td>
+                        </tr>
+                        {% endfor %}
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

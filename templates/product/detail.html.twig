@@ -1,148 +1,104 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}{{ product.code }} - Product Details{% endblock %}
-
-{% block content %}
-<div class="container mt-4">
-    <nav aria-label="breadcrumb">
-        <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="/">Products</a></li>
-            <li class="breadcrumb-item active">{{ product.brand }}</li>
-        </ol>
-    </nav>
-
-    <div class="row">
-        <div class="col-md-4">
-            <div class="card mb-4">
-                <div class="card-header bg-primary text-white">
-                    <h5 class="mb-0">Product Information</h5>
-                </div>
-                <div class="card-body">
-    <h1>{{ product.brand }}</h1>
-    <p>Net Weight: {{ product.net_weight }}g</p>
-    <p>Description: {{ product.description }}</p>
-    <p>Design: {{ product.design }}</p>
-
-    <h2>Measurements</h2>
-    <ol>
-        {% for measurement in product.measurements %}
-            <li>{{ measurement }} ml</li>
-        {% endfor %}
-    </ol>
-</div>
-            </div>
-        </div>
-        
-        <div class="col-md-8">
-            <div class="card mb-4">
-                <div class="card-header bg-info text-white">
-                    <h5 class="mb-0">Absorption Capacity Analysis</h5>
-                </div>
-                <div class="card-body">
-                    <canvas id="absorptionChart" width="400" height="250"></canvas>
-                </div>
-            </div>
-            
-            <div class="card">
-                <div class="card-header bg-success text-white">
-                    <h5 class="mb-0">Detailed Test Results</h5>
-                </div>
-                <div class="card-body">
-                    <div class="table-responsive">
-                        <table class="table table-striped">
-                            <thead>
-                                <tr>
-                                    <th>Measurement</th>
-                                    <th>Absorption Value (ml)</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {% for result in product.results %}
-                                <tr>
-                                    <td>Measurement {{ result.measurement_number }}</td>
-                                    <td>{{ result.absorption_value }} ml</td>
-                                </tr>
-                                {% endfor %}
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    
-    <div class="mt-4">
-        <a href="/" class="btn btn-secondary">Back to Product List</a>
-        <a href="/compare?ids={{ product.id }}" class="btn btn-primary">Compare With Others</a>
-    </div>
-</div>
+{% block title %}
+	{{ product.code }}
+	- Product Details
 {% endblock %}
 
-{% block scripts %}
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const ctx = document.getElementById('absorptionChart').getContext('2d');
-        
-        // Data from the product
-        const labels = {{ product.chart_data.labels|json_encode|raw }};
-        const values = {{ product.chart_data.values|json_encode|raw }};
-        
-        // Create gradient fill
-        const gradient = ctx.createLinearGradient(0, 0, 0, 400);
-        gradient.addColorStop(0, 'rgba(54, 162, 235, 0.8)');
-        gradient.addColorStop(1, 'rgba(54, 162, 235, 0.1)');
-        
-        const chart = new Chart(ctx, {
-            type: 'line',
-            data: {
-                labels: labels,
-                datasets: [{
-                    label: 'Absorption Capacity (ml)',
-                    data: values,
-                    borderColor: 'rgba(54, 162, 235, 1)',
-                    backgroundColor: gradient,
-                    borderWidth: 2,
-                    pointBackgroundColor: 'rgba(54, 162, 235, 1)',
-                    pointRadius: 5,
-                    fill: true,
-                    tension: 0.1
-                }]
-            },
-            options: {
-                responsive: true,
-                plugins: {
-                    title: {
-                        display: true,
-                        text: 'Product Absorption Capacity by Level',
-                        font: {
-                            size: 16
-                        }
-                    },
-                    tooltip: {
-                        callbacks: {
-                            label: function(context) {
-                                return `Capacity: ${context.parsed.y} ml`;
-                            }
-                        }
-                    }
-                },
-                scales: {
-                    y: {
-                        beginAtZero: true,
-                        title: {
-                            display: true,
-                            text: 'Absorption (ml)'
-                        }
-                    },
-                    x: {
-                        title: {
-                            display: true,
-                            text: 'Measurements'
-                        }
-                    }
-                }
-            }
-        });
-    });
-</script>
+{% block content %}
+	<div class="container mt-4">
+		<nav aria-label="breadcrumb">
+			<ol class="breadcrumb">
+				<li class="breadcrumb-item">
+					<a href="/">Products</a>
+				</li>
+				<li class="breadcrumb-item active">{{ product.brand }}</li>
+			</ol>
+		</nav>
+
+		<div class="row">
+			<div class="col-md-4">
+				<div class="card mb-4">
+					<div class="card-header bg-primary text-white">
+						<h5 class="mb-0">Product Information</h5>
+					</div>
+					<div class="card-body">
+						<h1>{{ product.brand }}</h1>
+						<p>Net Weight:
+							{{ product.net_weight }}g</p>
+						<p>Description:
+							{{ product.description }}</p>
+						<p>Design:
+							{{ product.design }}</p>
+
+						<h2>Measurements</h2>
+						<ol>
+							{% for measurement in product.measurements %}
+								<li>{{ measurement }} ml</li>
+							{% endfor %}
+						</ol>
+					</div>
+				</div>
+			</div>
+
+			<div class="col-md-8">
+				<div class="card mb-4">
+					<div class="card-header bg-info text-white">
+						<h5 class="mb-0">Absorption Capacity Analysis</h5>
+					</div>
+					<div class="card-body">
+						{% include 'partials/chart.html.twig' with {
+    						title: 'Product Absorption Capacity by Level',
+    						chart_id: 'absorptionChart',
+							labels: product.chart_data.labels,
+							datasets: [{
+								label: 'Absorption Capacity (ml)',
+								data: product.chart_data.values,
+								borderColor: 'rgba(54, 162, 235, 1)',
+								borderWidth: 2,
+								pointBackgroundColor: 'rgba(54, 162, 235, 1)',
+								pointRadius: 5,
+								fill: true,
+								tension: 0.1
+							}],
+							gradient: true
+						} %}
+					</div>
+				</div>
+
+				<div class="card">
+					<div class="card-header bg-success text-white">
+						<h5 class="mb-0">Detailed Test Results</h5>
+					</div>
+					<div class="card-body">
+						<div class="table-responsive">
+							<table class="table table-striped">
+								<thead>
+									<tr>
+										<th>Measurement</th>
+										<th>Absorption Value (ml)</th>
+									</tr>
+								</thead>
+								<tbody>
+									{% for result in product.results %}
+										<tr>
+											<td>Measurement
+												{{ result.measurement_number }}</td>
+											<td>{{ result.absorption_value }}
+												ml</td>
+										</tr>
+									{% endfor %}
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="mt-4">
+			<a href="/" class="btn btn-secondary">Back to Product List</a>
+			<a href="/compare?ids={{ product.id }}" class="btn btn-primary">Compare With Others</a>
+		</div>
+	</div>
 {% endblock %}

@@ -38,6 +38,11 @@ canvas {
     max-width: 100%;
 }
 
+canvas#comparisonChart {
+    max-width: 100%;
+    height: auto;
+}
+
 /* Button styling */
 .btn-primary {
     background-color: #0066cc;

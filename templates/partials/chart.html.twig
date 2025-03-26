@@ -1,0 +1,69 @@
+<div class="card mb-4">
+    <div class="card-header bg-primary text-white">
+        <h5 class="mb-0">{{ title }}</h5>
+    </div>
+    <div class="card-body">
+        <canvas id="{{ chart_id }}" width="400" height="250"></canvas>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const ctx = document.getElementById('{{ chart_id }}').getContext('2d');
+
+        // Data for the chart
+        const labels = {{ labels|json_encode|raw }};
+        const datasets = {{ datasets|json_encode|raw }};
+
+        // Create gradient fill (optional, only for single dataset)
+        {% if gradient %}
+        const gradient = ctx.createLinearGradient(0, 0, 0, 400);
+        gradient.addColorStop(0, 'rgba(54, 162, 235, 0.8)');
+        gradient.addColorStop(1, 'rgba(54, 162, 235, 0.1)');
+        datasets[0].backgroundColor = gradient;
+        {% endif %}
+
+        // Create the chart
+        const chart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: labels,
+                datasets: datasets
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    title: {
+                        display: true,
+                        text: '{{ title }}',
+                        font: {
+                            size: 16
+                        }
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function (context) {
+                                return `${context.dataset.label}: ${context.parsed.y} ml`;
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        title: {
+                            display: true,
+                            text: 'Absorption (ml)'
+                        }
+                    },
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Measurements'
+                        }
+                    }
+                }
+            }
+        });
+    });
+</script>
