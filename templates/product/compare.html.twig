@@ -5,13 +5,7 @@
 
 {% block content %}
 
-{% set colors = [
-    { 'border': 'rgba(54, 162, 235, 1)', 'background': 'rgba(54, 162, 235, 0.2)' },
-    { 'border': 'rgba(255, 99, 132, 1)', 'background': 'rgba(255, 99, 132, 0.2)' },
-    { 'border': 'rgba(75, 192, 192, 1)', 'background': 'rgba(75, 192, 192, 0.2)' },
-    { 'border': 'rgba(255, 206, 86, 1)', 'background': 'rgba(255, 206, 86, 0.2)' },
-    { 'border': 'rgba(153, 102, 255, 1)', 'background': 'rgba(153, 102, 255, 0.2)' }
-] %}
+{% set colors = ['color-1', 'color-2', 'color-3', 'color-4', 'color-5'] %}
 
 <div class="container mt-4">
     <nav aria-label="breadcrumb">
@@ -28,8 +22,7 @@
             {% set datasets = [] %}
             {% for dataset in comparison.comparison_data.datasets %}
                 {% set dataset_with_colors = dataset|merge({
-                    'borderColor': colors[loop.index0 % colors|length].border,
-                    'backgroundColor': colors[loop.index0 % colors|length].background
+                    'colorClass': colors[loop.index0 % colors|length]
                 }) %}
                 {% set datasets = datasets|merge([dataset_with_colors]) %}
             {% endfor %}

@@ -54,10 +54,9 @@
 							datasets: [{
 								label: 'Usage Capacity (ml)',
 								data: product.chart_data.values,
-								borderColor: 'rgba(54, 162, 235, 1)',
+								colorClass: 'color-' ~ random(1, 5),
 								borderWidth: 2,
-								pointBackgroundColor: 'rgba(54, 162, 235, 1)',
-								pointRadius: 5,
+								pointRadius: 10,
 								fill: true,
 								tension: 0.1
 							}],
@@ -77,6 +76,7 @@
 									<tr>
 										<th>Measurement</th>
 										<th>Usage Value (ml)</th>
+										<th>Saturation</th>
 									</tr>
 								</thead>
 								<tbody>
@@ -85,7 +85,9 @@
 											<td>Measurement
 												{{ result.measurement_number }}</td>
 											<td>{{ result.result_value }}
-												ml</td>
+												ml
+											</td>
+											<td>{{ result.saturation }}</td>
 										</tr>
 									{% endfor %}
 								</tbody>

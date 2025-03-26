@@ -11,23 +11,33 @@
     document.addEventListener('DOMContentLoaded', function () {
         const ctx = document.getElementById('{{ chart_id }}').getContext('2d');
 
-        // Data for the chart
-        const labels = {{ labels|json_encode|raw }};
-        const datasets = {{ datasets|json_encode|raw }};
+        // Function to get CSS custom properties
+        function getColor(className) {
+            const element = document.createElement('div');
+            element.className = className;
+            document.body.appendChild(element);
+            const styles = getComputedStyle(element);
+            const borderColor = styles.getPropertyValue('border-color').trim();
+            const backgroundColor = styles.getPropertyValue('background-color').trim();
+            document.body.removeChild(element);
+            return { borderColor, backgroundColor };
+        }
 
-        // Create gradient fill (optional, only for single dataset)
-        {% if gradient %}
-        const gradient = ctx.createLinearGradient(0, 0, 0, 400);
-        gradient.addColorStop(0, 'rgba(54, 162, 235, 0.8)');
-        gradient.addColorStop(1, 'rgba(54, 162, 235, 0.1)');
-        datasets[0].backgroundColor = gradient;
-        {% endif %}
+        // Nastav farby pre každý dataset
+        const datasets = {{ datasets|json_encode|raw }}.map(dataset => {
+            const colors = getColor(dataset.colorClass);
+            return {
+                ...dataset,
+                borderColor: colors.borderColor,
+                backgroundColor: colors.backgroundColor
+            };
+        });
 
-        // Create the chart
-        const chart = new Chart(ctx, {
+        // Vytvor graf
+        new Chart(ctx, {
             type: 'line',
             data: {
-                labels: labels,
+                labels: {{ labels|json_encode|raw }},
                 datasets: datasets
             },
             options: {

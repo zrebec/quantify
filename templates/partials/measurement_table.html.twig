@@ -9,6 +9,7 @@
                     <tr>
                         <th>Measurement</th>
                         <th>Usage (ml)</th>
+                        <th>Saturation (level)</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -17,6 +18,7 @@
                         <tr>
                             <td>{{ product.brand }} - Measurement {{ result.measurement_number }}</td>
                             <td>{{ result.result_value }} ml</td>
+                            <td>{{ result.saturation }}</td>
                         </tr>
                         {% endfor %}
                     {% endfor %}

@@ -74,7 +74,8 @@ class Product
         // Get measurement results for this product
         $results = $this->db->select('results', [
             'id',
-            'value'
+            'value',
+            'saturation'
         ], [
             'product_id' => $id,
             'ORDER' => ['id' => 'ASC']
@@ -84,7 +85,8 @@ class Product
         $product['results'] = array_map(function ($result, $index) {
             return [
                 'measurement_number' => $index + 1,
-                'result_value' => $result['value']
+                'result_value' => $result['value'],
+                'saturation' => $result['saturation']
             ];
         }, $results, array_keys($results));
     
