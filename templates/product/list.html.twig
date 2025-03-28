@@ -19,15 +19,35 @@
                                 <th>Compare</th>
                                 <th>Product</th>
                                 <th>Net Weight</th>
-                                <th>Counter</th>
-                                <th>Max Capacity</th>
-                                <th>Avg. Capacity</th>
-                                <th>Safe use</th>
+                                <th class="w-25">Counter</th>
+                                <th class="w-25">Max Capacity</th>
+                                <th class="w-25">Avg. Capacity</th>
+                                <th class="w-25">Safe use</th>
                                 <th>Design</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
                         <tbody>
+                            <tr>
+                                <td>&nbsp;</td>
+                                <td>
+                                    <input type="text" id="result_value" class="form-text w-100" placeholder="Name of new product">
+                                </td>
+                                <td>
+                                    <input type="text" id="result_value" class="form-text" placeholder="Net weight">
+                                </td>
+                                <td>&nbsp;</td>
+                                <td>&nbsp;</td>
+                                <td>&nbsp;</td>
+                                <td>&nbsp;</td>
+                                <td>
+                                    <input type="text" id="result_value" class="form-text" placeholder="Design">
+                                </td>
+                                <td>
+                                    <a href="/product/create" class="btn btn-primary w-100">
+                                        Add
+                                    </a>
+                                </td>
                             {% for product in products %}
                             <tr>
                                 <td>
@@ -64,8 +84,8 @@
                                 </td>
                                 <td>{{ product.design|default('-') }}</td>
                                 <td>
-                                    <a href="/product/{{ product.id }}" class="btn btn-sm btn-info">
-                                        Details
+                                    <a href="/product/{{ product.id }}" class="btn btn-danger w-100">
+                                        Delete
                                     </a>
                                 </td>
                             </tr>

@@ -5,6 +5,7 @@
 
 use Slim\Factory\AppFactory;
 use Slim\Views\Twig;
+use App\Twig\ChartExtension;
 use Slim\Views\TwigMiddleware;
 use Medoo\Medoo;
 use App\Controllers\ProductController;
@@ -21,6 +22,9 @@ $twig = Twig::create(__DIR__ . '/../templates', [
 
 // Initialize Slim app
 $app = AppFactory::create();
+
+// Add Twig extensions
+$twig->addExtension(new ChartExtension());
 
 // Add Twig middleware
 $twig_middleware = TwigMiddleware::create($app, $twig);
