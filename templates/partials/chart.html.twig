@@ -23,13 +23,22 @@
             return { borderColor, backgroundColor };
         }
 
-        // Nastav farby pre každý dataset
+        // Set color for every dataset
         const datasets = {{ datasets|json_encode|raw }}.map(dataset => {
-            const colors = getColor(dataset.colorClass);
+            if (dataset.colorClass) {
+                const colors = getColor(dataset.colorClass);
+                return {
+                    ...dataset,
+                    borderColor: colors.borderColor,
+                    backgroundColor: colors.backgroundColor,
+                };
+            }
+
+            // If no color class is provided, use default colors from the dataset
             return {
                 ...dataset,
-                borderColor: colors.borderColor,
-                backgroundColor: colors.backgroundColor
+                borderColor: dataset.borderColor,
+                backgroundColor: dataset.backgroundColor,
             };
         });
 

@@ -11,7 +11,8 @@
 			current: product.brand } 
 		%}
 
-		<div class="row">
+		<div
+			class="row">
 
 			<!-- Product information -->
 			<div class="col-md-4">
@@ -21,20 +22,22 @@
 			<!-- Chart -->
 			<div class="col-md-8">
 				<div class="card-body">
+					<pre>{{ product.results|map(result => saturation_color(result.saturation))|json_encode }}</pre>
+
 					{% include 'partials/chart.html.twig' with {
 						title: 'Product Usage Capacity by Level',
-						chart_id: 'resultsChart',
-						labels: product.chart_data.labels,
-						datasets: [{
-							label: 'Usage Capacity (ml)',
-							data: product.chart_data.values,
-							colorClass: random(chart_colors()),
-							borderWidth: 2,
-							pointRadius: 10,
-							type: 'bar',
-							fill: true,
-							tension: 0.1
-						}],
+    					chart_id: 'resultsChart',
+    					labels: product.chart_data.labels,
+    					datasets: [{
+        					label: 'Usage Capacity (ml)',
+        					data: product.chart_data.values,
+        					backgroundColor: product.results|map(result => saturation_color(result.saturation)),
+        					borderColor: product.results|map(result => saturation_color(result.saturation)),
+        					borderWidth: 2,
+        					type: 'bar',
+        					fill: true,
+        					tension: 0.1
+    					}],
 						gradient: true
 					} %}
 				</div>
