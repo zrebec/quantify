@@ -21,8 +21,8 @@ foreach ($data as $row) {
     fputcsv($productsFile, [
         $row['Brand'],
         $row['Net weight'],
-        $row['Design'],
-        $row['Description'],
+        $row['Design'] ?? null,
+        $row['Description'] ?? null,
     ]);
 }
 

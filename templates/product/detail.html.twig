@@ -15,17 +15,7 @@
 
 			<!-- Product information -->
 			<div class="col-md-4">
-				<div class="card">
-					<div class="card-header bg-primary text-white">
-						<h5 class="mb-0">Product Information</h5>
-					</div>
-					<div class="card-body">
-						<h1>{{ product.brand }}</h1>
-						<p>Net Weight: {{ product.net_weight }}g</p>
-						<p>Design:{{ product.design }}</p>
-						<p>Description: {{ product.description }}</p>
-					</div>
-				</div>
+				{% include 'partials/product_info.html.twig' %}
 			</div>
 
 			<!-- Chart -->
