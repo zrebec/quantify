@@ -7,14 +7,9 @@
 
 {% block content %}
 	<div class="container mt-4">
-		<nav aria-label="breadcrumb">
-			<ol class="breadcrumb">
-				<li class="breadcrumb-item">
-					<a href="/">Products</a>
-				</li>
-				<li class="breadcrumb-item active">{{ product.brand }}</a></li>
-			</ol>
-		</nav>
+		{% include 'partials/breadcrumb.html.twig' with {
+			current: product.brand } 
+		%}
 
 		<div class="row">
 
@@ -46,6 +41,7 @@
 							colorClass: random(chart_colors()),
 							borderWidth: 2,
 							pointRadius: 10,
+							type: 'bar',
 							fill: true,
 							tension: 0.1
 						}],

@@ -8,14 +8,9 @@
 {% set colors = chart_colors() %}
 
 <div class="container mt-4">
-    <nav aria-label="breadcrumb">
-        <ol class="breadcrumb">
-            <li class="breadcrumb-item">
-                <a href="/">Products</a>
-            </li>
-            <li class="breadcrumb-item active">Compare Products</li>
-        </ol>
-    </nav>
+    {% include 'partials/breadcrumb.html.twig' with {
+			current: "Multiple products comparsion" } 
+    %}
 
     <div class="row">
         <div class="col-md-6">
