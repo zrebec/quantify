@@ -17,6 +17,8 @@ CREATE TABLE results (
     product_id INTEGER NOT NULL,
     value INTEGER NOT NULL,        -- Retention value in ml
     saturation INTEGER NOT NULL,        -- Saturation level
+    note TEXT,                -- Additional notes
+    date DATE NOT NULL DEFAULT (date('now')),  -- Date of measurement
     FOREIGN KEY (product_id) REFERENCES products(id)
 );
 
