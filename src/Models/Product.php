@@ -75,7 +75,8 @@ class Product
         $results = $this->db->select('results', [
             'id',
             'value',
-            'saturation'
+            'saturation',
+            'note'
         ], [
             'product_id' => $id,
             'ORDER' => ['id' => 'ASC']
@@ -86,7 +87,8 @@ class Product
             return [
                 'measurement_number' => $index + 1,
                 'result_value' => $result['value'],
-                'saturation' => $result['saturation']
+                'saturation' => $result['saturation'],
+                'note' => $result['note'],
             ];
         }, $results, array_keys($results));
     

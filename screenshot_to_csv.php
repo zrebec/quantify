@@ -34,7 +34,7 @@ $measurementsFileName = 'data/results.csv';
 $measurementsFile = fopen($measurementsFileName, 'w');
 
 // Write measurement headers
-$measurementHeaders = ['Brand', 'Value', 'Saturation'];
+$measurementHeaders = ['Brand', 'Value', 'Saturation', 'Note'];
 fputcsv($measurementsFile, $measurementHeaders);
 
 // Write measurement data
@@ -44,6 +44,7 @@ foreach ($data as $row) {
             $row['Brand'],
             $measurement['value'],
             $measurement['saturation'],
+            $measurement['note'] ?? null,
         ]);
     }
 }

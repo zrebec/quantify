@@ -46,8 +46,8 @@ class Database {
     public function importResults(string $filePath) {
         $stmt = $this->pdo->prepare("
             INSERT INTO results 
-            (product_id, value, saturation) 
-            VALUES ((SELECT id FROM products WHERE brand = ?), ?, ?)
+            (product_id, value, saturation, note) 
+            VALUES ((SELECT id FROM products WHERE brand = ?), ?, ?, ?)
         ");
 
         $data = parseCsv($filePath);
@@ -56,6 +56,7 @@ class Database {
                 $row['Brand'],
                 intval($row['Value']),
                 intval($row['Saturation']),
+                $row['Note'] ?? null,
             ]);
         }
         echo "Results imported successfully.\n";

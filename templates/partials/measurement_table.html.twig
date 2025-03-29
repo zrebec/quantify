@@ -20,6 +20,11 @@
                             <td>{{ result.result_value }} ml</td>
                             <td>{{ result.saturation }}</td>
                         </tr>
+                        <tr>
+                            <td colspan="3" class="small">
+                                {{ result.note }}
+                            </td>
+                        </tr>
                         {% endfor %}
                     {% endfor %}
                 </tbody>
