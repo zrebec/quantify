@@ -22,11 +22,12 @@ class Product
         $products = $this->db->select('products', [
             'id',
             'brand',
+            'link',
             'net_weight',
             'description',
             'design'
         ], [
-            'ORDER' => ['brand' => 'DESC']
+            'ORDER' => Medoo::raw('brand COLLATE NOCASE ASC'),
         ]);
 
         foreach ($products as &$product) {

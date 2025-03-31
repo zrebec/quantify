@@ -84,8 +84,8 @@
                                 </td>
                                 <td>{{ product.design|default('-') }}</td>
                                 <td>
-                                    <a href="/product/{{ product.id }}" class="btn btn-danger w-100">
-                                        Delete
+                                    <a href="{{ product.link }}" target="_blank" class="btn btn-info w-100">
+                                        Open
                                     </a>
                                 </td>
                             </tr>

@@ -11,14 +11,15 @@ class ImportFromJSON {
     public function importProducts(string $filePath) {
         $stmt = $this->pdo->prepare("
             INSERT INTO products 
-            (brand, net_weight, design, description) 
-            VALUES (?, ?, ?, ?)
+            (brand, link, net_weight, design, description) 
+            VALUES (?, ?, ?, ?, ?)
         ");
 
         $data = $this->parseJson($filePath);
         foreach ($data as $row) {
             $stmt->execute([
                 $row['brand'],
+                $row['link'] ?? null,
                 intval($row['net weight']),
                 $row['design'] ?? null,
                 $row['description'] ?? null,

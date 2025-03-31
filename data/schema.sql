@@ -6,6 +6,7 @@ DROP TABLE IF EXISTS products;
 CREATE TABLE products (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     brand VARCHAR(255) NOT NULL,             -- Product brand/name
+    link VARCHAR(255) DEFAULT NULL,          -- Link to the product
     net_weight INTEGER NOT NULL,             -- Net weight in grams
     description TEXT,                        -- Full product description
     design VARCHAR(50)                       -- Design information (e.g. "3/5")

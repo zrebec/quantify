@@ -13,13 +13,14 @@ $productsFileName = 'data/products.csv';
 $productsFile = fopen($productsFileName, 'w');
 
 // Write column headers
-$productHeaders = ['brand', 'net weight', 'design', 'description'];
+$productHeaders = ['brand', 'link', 'net weight', 'design', 'description'];
 fputcsv($productsFile, $productHeaders);
 
 // Write data rows
 foreach ($data as $row) {
     fputcsv($productsFile, [
         $row['brand'],
+        $row['link'],
         $row['net weight'],
         $row['design'] ?? null,
         $row['description'] ?? null,
