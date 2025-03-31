@@ -22,8 +22,6 @@
 			<!-- Chart -->
 			<div class="col-md-8">
 				<div class="card-body">
-					<pre>{{ product.results|map(result => saturation_color(result.saturation))|json_encode }}</pre>
-
 					{% include 'partials/chart.html.twig' with {
 						title: 'Product Usage Capacity by Level',
     					chart_id: 'resultsChart',
