@@ -18,9 +18,11 @@ CREATE TABLE results (
     value INTEGER NOT NULL,        -- Retention value in ml
     saturation INTEGER NOT NULL,        -- Saturation level
     note TEXT,                -- Additional notes
-    date DATE NOT NULL DEFAULT (date('now')),  -- Date of measurement
+    date DATE NOT NULL DEFAULT '1970-01-01', -- Date of measurement
     FOREIGN KEY (product_id) REFERENCES products(id)
 );
 
 -- Indexes for better performance
 CREATE INDEX idx_measurement_product ON results(product_id);
+
+SELECT * FROM products;

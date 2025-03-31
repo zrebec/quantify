@@ -13,16 +13,16 @@ $productsFileName = 'data/products.csv';
 $productsFile = fopen($productsFileName, 'w');
 
 // Write column headers
-$productHeaders = ['Brand', 'Net weight', 'Design', 'Description'];
+$productHeaders = ['brand', 'net weight', 'design', 'description'];
 fputcsv($productsFile, $productHeaders);
 
 // Write data rows
 foreach ($data as $row) {
     fputcsv($productsFile, [
-        $row['Brand'],
-        $row['Net weight'],
-        $row['Design'] ?? null,
-        $row['Description'] ?? null,
+        $row['brand'],
+        $row['net weight'],
+        $row['design'] ?? null,
+        $row['description'] ?? null,
     ]);
 }
 
@@ -34,14 +34,15 @@ $measurementsFileName = 'data/results.csv';
 $measurementsFile = fopen($measurementsFileName, 'w');
 
 // Write measurement headers
-$measurementHeaders = ['Brand', 'Value', 'Saturation', 'Note'];
+$measurementHeaders = ['brand', 'date', 'value', 'saturation', 'note'];
 fputcsv($measurementsFile, $measurementHeaders);
 
 // Write measurement data
 foreach ($data as $row) {
-    foreach ($row['Measurements'] as $measurement) {
+    foreach ($row['measurements'] as $measurement) {
         fputcsv($measurementsFile, [
-            $row['Brand'],
+            $row['brand'],
+            $row['date'] ?? '1970-01-01',
             $measurement['value'],
             $measurement['saturation'],
             $measurement['note'] ?? null,
