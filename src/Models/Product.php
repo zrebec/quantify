@@ -61,6 +61,7 @@ class Product
         $product = $this->db->get('products', [
             'id',
             'brand',
+            'link',
             'net_weight',
             'description',
             'design'
