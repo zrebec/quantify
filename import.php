@@ -23,6 +23,12 @@ class Database {
         $this->pdo->exec($schema);
         echo "Database schema initialized.\n";
     }
+
+    public function parseJson(string $filePath): array {
+        $json = file_get_contents($filePath);
+        return json_decode($json, true) ?? [];
+    }
+    
     
     public function importProducts(string $filePath) {
         $stmt = $this->pdo->prepare("
@@ -30,34 +36,41 @@ class Database {
             (brand, net_weight, design, description) 
             VALUES (?, ?, ?, ?)
         ");
-        
-        $data = parseCsv($filePath);
+
+        $data = $this->parseJson($filePath);
         foreach ($data as $row) {
             $stmt->execute([
-                $row['Brand'],
-                intval($row['Net weight']),
-                $row['Design'] ?? null, 
-                $row['Description'] ?? null,
+                $row['brand'],
+                intval($row['net weight']),
+                $row['design'] ?? null,
+                $row['description'] ?? null,
             ]);
         }
+
         echo "Products imported successfully.\n";   
     }
     
     public function importResults(string $filePath) {
         $stmt = $this->pdo->prepare("
             INSERT INTO results 
-            (product_id, value, saturation, note) 
-            VALUES ((SELECT id FROM products WHERE brand = ?), ?, ?, ?)
+            (product_id, value, saturation, note, date) 
+            VALUES ((SELECT id FROM products WHERE brand = ?), ?, ?, ?, ?)
         ");
 
-        $data = parseCsv($filePath);
+        $data = $this->parseJson($filePath);
         foreach ($data as $row) {
-            $stmt->execute([
-                $row['Brand'],
-                intval($row['Value']),
-                intval($row['Saturation']),
-                $row['Note'] ?? null,
-            ]);
+            if (!isset($row['measurements'])) {
+                continue; // Skip if measurements is not defined yet
+            }
+
+            foreach ($row['measurements'] as $measurement) {
+                $stmt->execute([
+                    $row['brand'],
+                    intval($measurement['value']),
+                    intval($measurement['saturation']),
+                    $measurement['note'] ?? null
+                ]);
+            }
         }
         echo "Results imported successfully.\n";
     }
@@ -83,14 +96,13 @@ function parseCsv(string $filePath): array {
 // Main execution
 try {
     $dbPath = 'data/data.sqlite';
-    $productsCsvPath = 'data/products.csv';
-    $resultsCsvPath = 'data/results.csv';
+    $jsonPath = 'data/init_data.json';
     
     $db = new Database($dbPath);
     $db->initialize();
     
-    $db->importProducts($productsCsvPath);
-    $db->importResults($resultsCsvPath);
+    $db->importProducts($jsonPath);
+    $db->importResults($jsonPath);
     
     echo "Import completed successfully.\n";
 } catch (Exception $e) {
