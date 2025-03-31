@@ -19,7 +19,7 @@ class Product
      */
     public function getAllProducts(): array
     {
-        $products = $this->db->select('products', [
+        $products = $this->db->select('entities', [
             'id',
             'brand',
             'link',
@@ -39,8 +39,8 @@ class Product
 
     public function getProductMeasurements(array &$product): void
     {
-        $measurements = $this->db->select('results', ['value'], [
-            'product_id' => $product['id']
+        $measurements = $this->db->select('measurements', ['value'], [
+            'entity_id' => $product['id']
         ]);
 
         $measurementValues = array_column($measurements, 'value');
@@ -58,7 +58,7 @@ class Product
      * @return array|null Product data or null if not found
      */
     public function getProductWithMeasurements(int $id): ?array {
-        $product = $this->db->get('products', [
+        $product = $this->db->get('entities', [
             'id',
             'brand',
             'link',
@@ -74,13 +74,13 @@ class Product
         }
     
         // Get measurement results for this product
-        $results = $this->db->select('results', [
+        $results = $this->db->select('measurements', [
             'id',
             'value',
             'saturation',
             'note'
         ], [
-            'product_id' => $id,
+            'entity_id' => $id,
             'ORDER' => ['id' => 'ASC']
         ]);
     

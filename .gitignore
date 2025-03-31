@@ -1,5 +1,3 @@
-data/products.csv
-data/results.csv
 data/init_data.json
 data/data.sqlite
 vendor

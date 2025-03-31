@@ -8,9 +8,9 @@ class ImportFromJSON {
         $this->pdo = $db->getPDO();
     }
 
-    public function importProducts(string $filePath) {
+    public function importEntities(string $filePath) {
         $stmt = $this->pdo->prepare("
-            INSERT INTO products 
+            INSERT INTO entities 
             (brand, link, net_weight, design, description) 
             VALUES (?, ?, ?, ?, ?)
         ");
@@ -25,14 +25,14 @@ class ImportFromJSON {
                 $row['description'] ?? null,
             ]);
         }
-        echo "Products imported successfully from JSON.\n";
+        echo "Entities imported successfully.\n";
     }
 
-    public function importResults(string $filePath) {
+    public function importMeasurements(string $filePath) {
         $stmt = $this->pdo->prepare("
-            INSERT INTO results 
-            (product_id, date, value, saturation, note) 
-            VALUES ((SELECT id FROM products WHERE brand = ?), ?, ?, ?, ?)
+            INSERT INTO measurements 
+            (entity_id, date, value, saturation, note) 
+            VALUES ((SELECT id FROM entities WHERE brand = ?), ?, ?, ?, ?)
         ");
 
         $data = $this->parseJson($filePath);
@@ -51,7 +51,7 @@ class ImportFromJSON {
                 ]);
             }
         }
-        echo "Results imported successfully from JSON.\n";
+        echo "Measurements imported successfully.\n";
     }
 
     private function parseJson(string $filePath): array {

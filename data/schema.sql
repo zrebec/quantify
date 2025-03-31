@@ -1,29 +1,27 @@
 -- Drop existing tables if they exist
-DROP TABLE IF EXISTS results;
-DROP TABLE IF EXISTS products;
+DROP TABLE IF EXISTS entities;
+DROP TABLE IF EXISTS measurements;
 
--- Products table to store basic product information
-CREATE TABLE products (
+-- Entities table to store basic entity information
+CREATE TABLE entities (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
-    brand VARCHAR(255) NOT NULL,             -- Product brand/name
-    link VARCHAR(255) DEFAULT NULL,          -- Link to the product
+    brand VARCHAR(255) NOT NULL,             -- Entity brand/name
+    link VARCHAR(255) DEFAULT NULL,          -- Link to the entity
     net_weight INTEGER NOT NULL,             -- Net weight in grams
-    description TEXT,                        -- Full product description
+    description TEXT,                        -- Full entity description
     design VARCHAR(50)                       -- Design information (e.g. "3/5")
 );
 
 -- Measurement results to store individual test results
-CREATE TABLE results (
+CREATE TABLE measurements (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
-    product_id INTEGER NOT NULL,
-    value INTEGER NOT NULL,        -- Retention value in ml
+    entity_id INTEGER NOT NULL,
+    value INTEGER NOT NULL,        -- Retention value
     saturation INTEGER NOT NULL,        -- Saturation level
     note TEXT,                -- Additional notes
     date DATE NOT NULL DEFAULT '1970-01-01', -- Date of measurement
-    FOREIGN KEY (product_id) REFERENCES products(id)
+    FOREIGN KEY (entity_id) REFERENCES entities(id)
 );
 
 -- Indexes for better performance
-CREATE INDEX idx_measurement_product ON results(product_id);
-
-SELECT * FROM products;
+CREATE INDEX idx_measurement_entity ON measurements(entity_id);
