@@ -1,6 +1,6 @@
 -- Drop existing tables if they exist
-DROP TABLE IF EXISTS entities;
 DROP TABLE IF EXISTS measurements;
+DROP TABLE IF EXISTS entities;
 
 -- Entities table to store basic entity information
 CREATE TABLE entities (
