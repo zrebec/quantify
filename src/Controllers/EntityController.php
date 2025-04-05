@@ -9,13 +9,11 @@ use Slim\Views\Twig;
 
 class EntityController
 {
-    private $db;
-    private $view;
-    private $productModel;
+    private Twig $view;
+    private Entity $productModel;
     
     public function __construct(Medoo $db, Twig $view)
     {
-        $this->db = $db;
         $this->view = $view;
         $this->productModel = new Entity($db);
     }
