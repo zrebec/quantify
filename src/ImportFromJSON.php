@@ -1,4 +1,8 @@
 <?php
+namespace App;
+
+use Exception;
+
 require_once 'Database.php';
 
 class ImportFromJSON {
