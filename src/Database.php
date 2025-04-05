@@ -1,6 +1,9 @@
 <?php
+namespace App;
+use PDO;
+
 class Database {
-    private $pdo;
+    private PDO $pdo;
 
     public function __construct(string $dbPath) {
         $this->pdo = new PDO('sqlite:' . $dbPath);
