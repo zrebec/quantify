@@ -1,13 +1,13 @@
 <?php
 namespace App\Controllers;
 
-use App\Models\Product;
+use App\Models\Entity;
 use Medoo\Medoo;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Slim\Views\Twig;
 
-class ProductController
+class EntityController
 {
     private $db;
     private $view;
@@ -17,7 +17,7 @@ class ProductController
     {
         $this->db = $db;
         $this->view = $view;
-        $this->productModel = new Product($db);
+        $this->productModel = new Entity($db);
     }
     
     /**
@@ -25,7 +25,7 @@ class ProductController
      */
     public function listProducts(Request $request, Response $response, array $args): Response
     {
-        $products = $this->productModel->getAllProducts();
+        $products = $this->productModel->getAllEntities();
         
         return $this->view->render($response, 'product/list.html.twig', [
             'products' => $products,
@@ -38,7 +38,7 @@ class ProductController
      */
     public function showProduct($request, $response, $args) {
         $productId = $args['id'];
-        $product = $this->productModel->getProductWithMeasurements($productId);
+        $product = $this->productModel->getEntityWithMeasurements($productId);
     
         if (!$product) {
             return $response->withStatus(404)->write('Product not found');
@@ -66,7 +66,7 @@ class ProductController
             return $response->withHeader('Location', '/')->withStatus(302);
         }
         
-        $comparisonData = $this->productModel->compareProducts($productIds);
+        $comparisonData = $this->productModel->compareEntities($productIds);
         
         return $this->view->render($response, 'product/compare.html.twig', [
             'comparison' => [

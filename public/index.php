@@ -8,7 +8,7 @@ use Slim\Views\Twig;
 use App\Twig\ChartExtension;
 use Slim\Views\TwigMiddleware;
 use Medoo\Medoo;
-use App\Controllers\ProductController;
+use App\Controllers\EntityController;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 
@@ -38,17 +38,17 @@ $db = new Medoo([
 
 // Define routes
 $app->get('/', function (Request $request, Response $response, array $args) use ($db, $twig) {
-    $productController = new ProductController($db, $twig);
+    $productController = new EntityController($db, $twig);
     return $productController->listProducts($request, $response, $args);
 });
 
 $app->get('/product/{id}', function (Request $request, Response $response, array $args) use ($db, $twig) {
-    $productController = new ProductController($db, $twig);
+    $productController = new EntityController($db, $twig);
     return $productController->showProduct($request, $response, $args);
 });
 
 $app->get('/compare', function (Request $request, Response $response, array $args) use ($db, $twig) {
-    $productController = new ProductController($db, $twig);
+    $productController = new EntityController($db, $twig);
     return $productController->compareProducts($request, $response, $args);
 });
 

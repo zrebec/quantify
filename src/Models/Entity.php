@@ -3,7 +3,7 @@ namespace App\Models;
 
 use Medoo\Medoo;
 
-class Product
+class Entity
 {
     private $db;
     
@@ -17,9 +17,9 @@ class Product
      * 
      * @return array List of products
      */
-    public function getAllProducts(): array
+    public function getAllEntities(): array
     {
-        $products = $this->db->select('entities', [
+        $entities = $this->db->select('entities', [
             'id',
             'brand',
             'link',
@@ -30,25 +30,25 @@ class Product
             'ORDER' => Medoo::raw('brand COLLATE NOCASE ASC'),
         ]);
 
-        foreach ($products as &$product) {
-            $this->getProductMeasurements($product);
+        foreach ($entities as &$entity) {
+            $this->getEntityMeasurements($entity);
         }
         
-        return $products;
+        return $entities;
     }
 
-    public function getProductMeasurements(array &$product): void
+    public function getEntityMeasurements(array &$entity): void
     {
         $measurements = $this->db->select('measurements', ['value'], [
-            'entity_id' => $product['id']
+            'entity_id' => $entity['id']
         ]);
 
         $measurementValues = array_column($measurements, 'value');
         
-        $product['measurement_count'] = count($measurementValues);;
-        $product['max_capacity'] = $measurementValues ? max($measurementValues) : 0;
-        $product['average_capacity'] = $measurementValues ? floor(array_sum($measurementValues) / count($measurementValues)) - $product['net_weight'] : 0;
-        $product['safe_use'] = floor($product['average_capacity'] / 250);
+        $entity['measurement_count'] = count($measurementValues);;
+        $entity['max_capacity'] = $measurementValues ? max($measurementValues) : 0;
+        $entity['average_capacity'] = $measurementValues ? floor(array_sum($measurementValues) / count($measurementValues)) - $entity['net_weight'] : 0;
+        $entity['safe_use'] = floor($entity['average_capacity'] / 250);
     }
     
     /**
@@ -57,8 +57,8 @@ class Product
      * @param int $id Product ID
      * @return array|null Product data or null if not found
      */
-    public function getProductWithMeasurements(int $id): ?array {
-        $product = $this->db->get('entities', [
+    public function getEntityWithMeasurements(int $id): ?array {
+        $entity = $this->db->get('entities', [
             'id',
             'brand',
             'link',
@@ -69,11 +69,11 @@ class Product
             'id' => $id
         ]);
     
-        if (!$product) {
+        if (!$entity) {
             return null;
         }
     
-        // Get measurement results for this product
+        // Get measurement results for this entity
         $results = $this->db->select('measurements', [
             'id',
             'value',
@@ -84,8 +84,8 @@ class Product
             'ORDER' => ['id' => 'ASC']
         ]);
     
-        // Add detailed results to the product
-        $product['results'] = array_map(function ($result, $index) {
+        // Add detailed results to the entity
+        $entity['results'] = array_map(function ($result, $index) {
             return [
                 'measurement_number' => $index + 1,
                 'result_value' => $result['value'],
@@ -95,25 +95,25 @@ class Product
         }, $results, array_keys($results));
     
         // Add measurements array for the chart
-        $product['chart_data'] = [
+        $entity['chart_data'] = [
             'labels' => array_map(function ($index) {
                 return "Measurement " . ($index + 1);
             }, array_keys($results)),
             'values' => array_column($results, 'value')
         ];
 
-        // Add measurements to the product
-        $this->getProductMeasurements($product);
-        return $product;
+        // Add measurements to the entity
+        $this->getEntityMeasurements($entity);
+        return $entity;
     }
     
     /**
      * Compare multiple products
      * 
-     * @param array $productIds Array of product IDs to compare
+     * @param array $entityIds Array of product IDs to compare
      * @return array Comparison data
      */
-    public function compareProducts(array $productIds): array
+    public function compareEntities(array $entityIds): array
     {
         $products = [];
         $comparisonData = [
@@ -121,8 +121,8 @@ class Product
             'datasets' => []
         ];
         
-        foreach ($productIds as $id) {
-            $product = $this->getProductWithMeasurements($id);
+        foreach ($entityIds as $id) {
+            $product = $this->getEntityWithMeasurements($id);
             if ($product) {
                 $products[] = $product;
                 
