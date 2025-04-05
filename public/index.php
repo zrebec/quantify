@@ -39,7 +39,7 @@ $db = new Medoo([
 // Define routes
 $app->get('/', function (Request $request, Response $response, array $args) use ($db, $twig) {
     $productController = new EntityController($db, $twig);
-    return $productController->listProducts($request, $response, $args);
+    return $productController->listEntities($response, $args);
 });
 
 $app->get('/product/{id}', function (Request $request, Response $response, array $args) use ($db, $twig) {

@@ -21,7 +21,7 @@ class EntityController
     /**
      * List all products
      */
-    public function listProducts(Request $request, Response $response, array $args): Response
+    public function listEntities(Response $response, array $args): Response
     {
         $products = $this->productModel->getAllEntities();
         
