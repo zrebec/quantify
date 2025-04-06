@@ -52,7 +52,7 @@ class Entity
     }
     
     /**
-     * Get product by ID with all results
+     * Get entity by ID with all results
      * 
      * @param int $id Product ID
      * @return array|null Product data or null if not found
@@ -68,10 +68,8 @@ class Entity
         ], [
             'id' => $id
         ]);
-    
-        if (!$entity) {
-            return null;
-        }
+
+        if (!$entity) return null;
     
         // Get measurement results for this entity
         $results = $this->db->select('measurements', [
@@ -110,7 +108,7 @@ class Entity
     /**
      * Compare multiple products
      * 
-     * @param array $entityIds Array of product IDs to compare
+     * @param array $entityIds Array of entity IDs to compare
      * @return array Comparison data
      */
     public function compareEntities(array $entityIds): array

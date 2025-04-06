@@ -7,11 +7,11 @@ try {
     $dbPath = 'data/data.sqlite';
     $jsonPath = 'data/init_data.json';
 
-    $db = new Database($dbPath);
+    $db = new App\Database($dbPath);
     $db->initialize();
 
     // Import from JSON
-    $importJson = new ImportFromJSON($db);
+    $importJson = new App\ImportFromJSON($db);
     $importJson->importEntities($jsonPath);
     $importJson->importMeasurements($jsonPath);
 

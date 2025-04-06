@@ -7,7 +7,7 @@
             <table class="table table-striped table-hover">
                 <thead>
                     <tr>
-                        <th>Product</th>
+                        <th>Entity</th>
                         <th>Net Weight</th>
                         <th>Design</th>
                         <th>Max Level</th>
@@ -15,15 +15,15 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {% for product in comparison.products %}
+                    {% for entity in comparison.entities %}
                     <tr>
                         <td>
-                            <a href="/product/{{ product.id }}">{{ product.brand }}</a>
+                            <a href="/product/{{ entity.id }}">{{ entity.brand }}</a>
                         </td>
-                        <td>{{ product.net_weight }} g</td>
-                        <td>{{ product.design|default('-') }}</td>
-                        <td>{{ product.max_capacity }} ml</td>
-                        <td>{{ product.average_capacity|round(2, 'floor') }} ml</td>
+                        <td>{{ entity.net_weight }} g</td>
+                        <td>{{ entity.design|default('-') }}</td>
+                        <td>{{ entity.max_capacity }} ml</td>
+                        <td>{{ entity.average_capacity|round(2, 'floor') }} ml</td>
                     </tr>
                     {% endfor %}
                 </tbody>

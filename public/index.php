@@ -42,14 +42,14 @@ $app->get('/', function (Request $request, Response $response, array $args) use 
     return $productController->listEntities($response, $args);
 });
 
-$app->get('/product/{id}', function (Request $request, Response $response, array $args) use ($db, $twig) {
+$app->get('/entity/{id}', function (Request $request, Response $response, array $args) use ($db, $twig) {
     $productController = new EntityController($db, $twig);
-    return $productController->showProduct($request, $response, $args);
+    return $productController->showEntity($response, $args);
 });
 
 $app->get('/compare', function (Request $request, Response $response, array $args) use ($db, $twig) {
     $productController = new EntityController($db, $twig);
-    return $productController->compareProducts($request, $response, $args);
+    return $productController->compareEntities($request, $response, $args);
 });
 
 // Run the application

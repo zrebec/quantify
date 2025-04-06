@@ -1,14 +1,14 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Product List{% endblock %}
+{% block title %}Entity List{% endblock %}
 
 {% block content %}
 <div class="container mt-4">
-    <h1>Product Comparison Tool</h1>
+    <h1>Entity Comparison Tool</h1>
     
     <div class="card mb-4">
         <div class="card-header bg-primary text-white">
-            <h5 class="mb-0">Products Available for Comparison</h5>
+            <h5 class="mb-0">Entities Available for Comparison</h5>
         </div>
         <div class="card-body">
             <form id="compare-form" action="/compare" method="get">
@@ -17,7 +17,7 @@
                         <thead>
                             <tr>
                                 <th>Compare</th>
-                                <th>Product</th>
+                                <th>Entity</th>
                                 <th>Net Weight</th>
                                 <th class="w-25">Counter</th>
                                 <th class="w-25">Max Capacity</th>
@@ -31,7 +31,7 @@
                             <tr>
                                 <td>&nbsp;</td>
                                 <td>
-                                    <input type="text" id="result_value" class="form-text w-100" placeholder="Name of new product">
+                                    <input type="text" id="result_value" class="form-text w-100" placeholder="Name of new entities">
                                 </td>
                                 <td>
                                     <input type="text" id="result_value" class="form-text" placeholder="Net weight">
@@ -44,47 +44,47 @@
                                     <input type="text" id="result_value" class="form-text" placeholder="Design">
                                 </td>
                                 <td>
-                                    <a href="/product/create" class="btn btn-primary w-100">
+                                    <a href="/entity/create" class="btn btn-primary w-100">
                                         Add
                                     </a>
                                 </td>
-                            {% for product in products %}
+                            {% for entity in entities %}
                             <tr>
                                 <td>
                                     <div class="form-check">
-                                        <input class="form-check-input product-select" type="checkbox" 
-                                               name="product[]" value="{{ product.id }}" id="product-{{ product.id }}">
+                                        <input class="form-check-input entity-select" type="checkbox"
+                                               name="entity[]" value="{{ entity.id }}" id="entity-{{ entity.id }}">
                                     </div>
                                 </td>
                                 <td>
-                                    <a href="/product/{{ product.id }}">{{ product.brand }}</a>
+                                    <a href="/entity/{{ entity.id }}">{{ entity.brand }}</a>
                                 </td>
-                                <td>{{ product.net_weight }} g</td>
+                                <td>{{ entity.net_weight }} g</td>
                                 <td>
-                                    {{ product.measurement_count|default(0) }} 
-                                    {% if product.measurement_count == 1 %}
+                                    {{ entity.measurement_count|default(0) }}
+                                    {% if entity.measurement_count == 1 %}
                                         meranie
-                                    {% elseif product.measurement_count > 1 and product.measurement_count < 5 %}
+                                    {% elseif entity.measurement_count > 1 and entity.measurement_count < 5 %}
                                         merania
                                     {% else %}
                                         meraní
                                     {% endif %}
                                 </td>
-                                <td>{{ product.max_capacity|default(0) }} ml</td>
-                                <td>{{ product.average_capacity|number_format(0) }} ml</td>
+                                <td>{{ entity.max_capacity|default(0) }} ml</td>
+                                <td>{{ entity.average_capacity|number_format(0) }} ml</td>
                                 <td>
-                                    {{ product.safe_use|default('0') }} 
-                                    {% if product.safe_use == 1 %}
+                                    {{ entity.safe_use|default('0') }}
+                                    {% if entity.safe_use == 1 %}
                                         použitie
-                                    {% elseif product.safe_use > 1 and product.safe_use < 5 %}
+                                    {% elseif entity.safe_use > 1 and entity.safe_use < 5 %}
                                         použitia
                                     {% else %}
                                         použití
                                     {% endif %}
                                 </td>
-                                <td>{{ product.design|default('-') }}</td>
+                                <td>{{ entity.design|default('-') }}</td>
                                 <td>
-                                    <a href="{{ product.link }}" target="_blank" class="icon-link icon-link-hover">
+                                    <a href="{{ entity.link }}" target="_blank" class="icon-link icon-link-hover">
                                         <img src="/assets/images/link.svg" alt="Link icon">
                                     </a>
                                 </td>
@@ -96,7 +96,7 @@
                 
                 <div class="mt-3">
                     <button type="button" id="compare-btn" class="btn btn-primary" disabled>
-                        Compare Selected Products
+                        Compare Selected Entities
                     </button>
                 </div>
             </form>
@@ -108,12 +108,12 @@
             <h5 class="mb-0">Usage Guide</h5>
         </div>
         <div class="card-body">
-            <p>This tool allows you to compare different products based on their capacity levels.</p>
+            <p>This tool allows you to compare different entities based on their capacity levels.</p>
             <p>How to use:</p>
             <ol>
-                <li>Select products you want to compare (up to 5)</li>
-                <li>Click "Compare Selected Products" to see detailed comparison</li>
-                <li>Or click "Details" to see individual product analysis</li>
+                <li>Select entities you want to compare (up to 5)</li>
+                <li>Click "Compare Selected Entities" to see detailed comparison</li>
+                <li>Or click "Details" to see individual entity analysis</li>
             </ol>
         </div>
     </div>
@@ -124,16 +124,16 @@
 {% block scripts %}
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-        const checkboxes = document.querySelectorAll('.product-select');
+        const checkboxes = document.querySelectorAll('.entity-select');
         const compareBtn = document.getElementById('compare-btn');
         const form = document.getElementById('compare-form');
         
         function updateCompareButton() {
-            const checked = document.querySelectorAll('.product-select:checked');
+            const checked = document.querySelectorAll('.entity-select:checked');
             compareBtn.disabled = checked.length < 2;
             
             if (checked.length > 5) {
-                alert('Please select a maximum of 5 products to compare.');
+                alert('Please select a maximum of 5 entities to compare.');
                 this.checked = false;
             }
         }
@@ -143,7 +143,7 @@
         });
         
         compareBtn.addEventListener('click', function() {
-            const checked = document.querySelectorAll('.product-select:checked');
+            const checked = document.querySelectorAll('.entity-select:checked');
             const ids = Array.from(checked).map(cb => cb.value).join(',');
             window.location.href = '/compare?ids=' + ids;
         });

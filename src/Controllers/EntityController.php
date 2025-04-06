@@ -6,16 +6,19 @@ use Medoo\Medoo;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Slim\Views\Twig;
+use Twig\Error\LoaderError;
+use Twig\Error\RuntimeError;
+use Twig\Error\SyntaxError;
 
 class EntityController
 {
     private Twig $view;
-    private Entity $productModel;
+    private Entity $entityModel;
     
     public function __construct(Medoo $db, Twig $view)
     {
         $this->view = $view;
-        $this->productModel = new Entity($db);
+        $this->entityModel = new Entity($db);
     }
     
     /**
@@ -23,50 +26,55 @@ class EntityController
      */
     public function listEntities(Response $response, array $args): Response
     {
-        $products = $this->productModel->getAllEntities();
-        
-        return $this->view->render($response, 'product/list.html.twig', [
-            'products' => $products,
-            'title' => 'Product Comparison'
-        ]);
+        $entities = $this->entityModel->getAllEntities();
+
+        try {
+            return $this->view->render($response, 'entity/list.html.twig', [
+                'entities' => $entities,
+                'title' => 'Product Comparison'
+            ]);
+        } catch (LoaderError|RuntimeError|SyntaxError $e) {
+            echo "Twig render exception: " . $e->getMessage();
+        }
+        return $response;
     }
     
     /**
-     * Show a single product with its results data
+     * Show a single entity with its results data
      */
-    public function showProduct($request, $response, $args) {
-        $productId = $args['id'];
-        $product = $this->productModel->getEntityWithMeasurements($productId);
+    public function showEntity($response, $args) {
+        $entityId = $args['id'];
+        $entity = $this->entityModel->getEntityWithMeasurements($entityId);
     
-        if (!$product) {
-            return $response->withStatus(404)->write('Product not found');
+        if (!$entity) {
+            return $response->withStatus(404)->write('Entity not found');
         }
     
-        return $this->view->render($response, 'product/detail.html.twig', [
-            'product' => $product
+        return $this->view->render($response, 'entity/detail.html.twig', [
+            'entity' => $entity
         ]);
     }
     
     /**
      * Compare multiple products
      */
-    public function compareProducts(Request $request, Response $response, array $args): Response
+    public function compareEntities(Request $request, Response $response, array $args): Response
     {
         $params = $request->getQueryParams();
-        $productIds = isset($params['ids']) ? explode(',', $params['ids']) : [];
+        $entityIds = isset($params['ids']) ? explode(',', $params['ids']) : [];
         
         // Make sure we have valid IDs
-        $productIds = array_filter($productIds, function($id) {
+        $entityIds = array_filter($entityIds, function($id) {
             return is_numeric($id) && $id > 0;
         });
         
-        if (empty($productIds)) {
+        if (empty($entityIds)) {
             return $response->withHeader('Location', '/')->withStatus(302);
         }
         
-        $comparisonData = $this->productModel->compareEntities($productIds);
+        $comparisonData = $this->entityModel->compareEntities($entityIds);
         
-        return $this->view->render($response, 'product/compare.html.twig', [
+        return $this->view->render($response, 'entity/compare.html.twig', [
             'comparison' => [
                 'products' => $comparisonData['products'],
                 'comparison_data' => $comparisonData['comparison_data']

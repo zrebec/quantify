@@ -1,14 +1,14 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
-	{{ product.brand }}
+	{{ entity.brand }}
 	- Details
 {% endblock %}
 
 {% block content %}
 	<div class="container mt-4">
 		{% include 'partials/breadcrumb.html.twig' with {
-			current: product.brand } 
+			current: entity.brand } 
 		%}
 
 		<div
@@ -25,12 +25,12 @@
 					{% include 'partials/chart.html.twig' with {
 						title: 'Product Usage Capacity by Level',
     					chart_id: 'resultsChart',
-    					labels: product.chart_data.labels,
+    					labels: entity.chart_data.labels,
     					datasets: [{
         					label: 'Usage Capacity (ml)',
-        					data: product.chart_data.values,
-        					backgroundColor: product.results|map(result => saturation_color(result.saturation)),
-        					borderColor: product.results|map(result => saturation_color(result.saturation)),
+        					data: entity.chart_data.values,
+        					backgroundColor: entity.results|map(result => saturation_color(result.saturation)),
+        					borderColor: entity.results|map(result => saturation_color(result.saturation)),
         					borderWidth: 2,
         					type: 'bar',
         					fill: true,
@@ -60,7 +60,7 @@
 								</thead>
 								<tbody>
 									<tr>
-										<input type="hidden" id="entity_id" value="{{ product.id }}">
+										<input type="hidden" id="entity_id" value="{{ entity.id }}">
 										<td><input type="text" id="measurement_number" class="form-text" placeholder="Would be datetime here" disabled></td>
 										<td><input type="text" id="result_value" class="form-text" placeholder="Result Value"></td>
 										<td><input type="text" id="saturation" class="form-text" placeholder="Saturation"></td>
@@ -68,7 +68,7 @@
 											<button id="add_result" class="btn btn-primary w-100">Add</button>
 										</td>
 									</tr>
-									{% for result in product.results %}
+									{% for result in entity.results %}
 										<tr>
 											<td>Measurement
 												{{ result.measurement_number }}</td>
@@ -91,7 +91,7 @@
 
 		<div class="mt-4">
 			<a href="/" class="btn btn-secondary">Back to Product List</a>
-			<a href="/compare?ids={{ product.id }}" class="btn btn-primary">Compare With Others</a>
+			<a href="/compare?ids={{ entity.id }}" class="btn btn-primary">Compare With Others</a>
 		</div>
 	</div>
 {% endblock %}
