@@ -158,8 +158,14 @@ class Entity
                     ];
         
                     // Ensure labels are populated
-                    if (empty($comparisonData['labels']) && !empty($entity['chart_data']['labels'])) {
-                        $comparisonData['labels'] = $entity['chart_data']['labels'];
+                    foreach ($entity['chart_data']['labels'] as $label) {
+                        /**
+                         * Ensures the label is added to the graph if it is not already present.
+                         * This guarantees a complete and accurate representation of data across entities.
+                         */
+                        if (!in_array($label, $comparisonData['labels'])) {
+                            $comparisonData['labels'][] = $label;
+                        }
                     }
         
                     $comparisonData['datasets'][] = $dataset;
