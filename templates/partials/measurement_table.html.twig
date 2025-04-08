@@ -13,7 +13,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {% for entity in comparison.products %}
+                    {% for entity in comparison.entities %}
                         {% for result in entity.results %}
                         <tr>
                             <td>{{ entity.brand }} #{{ result.measurement_number }}</td>

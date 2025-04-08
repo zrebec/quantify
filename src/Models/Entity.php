@@ -13,9 +13,9 @@ class Entity
     }
     
     /**
-     * Get all products with their average results capacity
+     * Get all entities with their average results capacity
      * 
-     * @return array List of products
+     * @return array List of entities
      */
     public function getAllEntities(): array
     {
@@ -55,8 +55,8 @@ class Entity
     /**
      * Get entity by ID with all results
      * 
-     * @param int $id Product ID
-     * @return array|null Product data or null if not found
+     * @param int $id Entity ID
+     * @return array|null Entity data or null if not found
      */
     public function getEntityWithMeasurements(int $id): ?array {
         $entity = $this->db->get('entities', [
@@ -126,31 +126,31 @@ class Entity
     }
     
     /**
-     * Compare multiple products
+     * Compare multiple entities
      * 
      * @param array $entityIds Array of entity IDs to compare
      * @return array Comparison data
      */
     public function compareEntities(array $entityIds): array
     {
-        $products = [];
+        $entities = [];
         $comparisonData = [
             'labels' => [],
             'datasets' => []
         ];
         
         foreach ($entityIds as $id) {
-            $product = $this->getEntityWithMeasurements($id);
-            if ($product) {
-                $product['properties'] = $this->getEntityProperties($id);
-                $products[] = $product;
+            $entity = $this->getEntityWithMeasurements($id);
+            if ($entity) {
+                $entity['properties'] = $this->getEntityProperties($id);
+                $entities[] = $entity;
                 
         
                 // Add to comparison chart data
-                if (!empty($product['chart_data']['values'])) {
+                if (!empty($entity['chart_data']['values'])) {
                     $dataset = [
-                        'label' => $product['brand'], // Use brand for the label
-                        'data' => $product['chart_data']['values'], // Use chart_data values
+                        'label' => $entity['brand'], // Use brand for the label
+                        'data' => $entity['chart_data']['values'], // Use chart_data values
                         'borderColor' => 'rgba(54, 162, 235, 1)', // Example color
                         'backgroundColor' => 'rgba(54, 162, 235, 0.2)', // Example color
                         'borderWidth' => 2,
@@ -158,21 +158,21 @@ class Entity
                     ];
         
                     // Ensure labels are populated
-                    if (empty($comparisonData['labels']) && !empty($product['chart_data']['labels'])) {
-                        $comparisonData['labels'] = $product['chart_data']['labels'];
+                    if (empty($comparisonData['labels']) && !empty($entity['chart_data']['labels'])) {
+                        $comparisonData['labels'] = $entity['chart_data']['labels'];
                     }
         
                     $comparisonData['datasets'][] = $dataset;
                 } else {
-                    error_log("Product ID {$id} has empty chart_data['values']");
+                    error_log("Entity ID {$id} has empty chart_data['values']");
                 }
             } else {
-                error_log("Product ID {$id} not found or invalid.");
+                error_log("Entity ID {$id} not found or invalid.");
             }
         }
         
         return [
-            'products' => $products,
+            'entities' => $entities,
             'comparison_data' => $comparisonData
         ];
     }

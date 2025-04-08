@@ -76,7 +76,7 @@ class EntityController
         
         return $this->view->render($response, 'entity/compare.html.twig', [
             'comparison' => [
-                'products' => $comparisonData['products'],
+                'entities' => $comparisonData['entities'],
                 'comparison_data' => $comparisonData['comparison_data']
         ]
         ]);
