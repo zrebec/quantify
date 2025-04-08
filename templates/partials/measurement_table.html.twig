@@ -1,32 +1,43 @@
-<div class="card mb-4">
-    <div class="card-header bg-info text-white">
-        <h5 class="mb-0">Detailed Usage Data</h5>
+<div class="card">
+    <div class="card-header bg-success text-white">
+        <h5 class="mb-0">Entity Feature Comparison</h5>
     </div>
     <div class="card-body">
         <div class="table-responsive">
-            <table class="table table-striped">
+            <table class="table table-striped table-hover">
                 <thead>
                     <tr>
-                        <th>Measurement</th>
-                        <th>Usage (ml)</th>
-                        <th>Saturation (level)</th>
+                        <th>Feature</th>
+                        {% for entity in comparison.entities %}
+                            <th>{{ entity.brand }}</th>
+                        {% endfor %}
                     </tr>
                 </thead>
                 <tbody>
-                    {% for entity in comparison.entities %}
-                        {% for result in entity.results %}
-                        <tr>
-                            <td>{{ entity.brand }} #{{ result.measurement_number }}</td>
-                            <td>{{ result.result_value }} ml</td>
-                            <td>{{ result.saturation }}</td>
-                        </tr>
-                        <tr>
-                            <td colspan="3" class="small">
-                                {{ result.note }}
-                            </td>
-                        </tr>
+                    <tr>
+                        <td>Net Weight</td>
+                        {% for entity in comparison.entities %}
+                            <td>{{ entity.properties.net_weight|default('N/A') }} g</td>
                         {% endfor %}
-                    {% endfor %}
+                    </tr>
+                    <tr>
+                        <td>Design</td>
+                        {% for entity in comparison.entities %}
+                            <td>{{ entity.design|default('-') }}</td>
+                        {% endfor %}
+                    </tr>
+                    <tr>
+                        <td>Max Level</td>
+                        {% for entity in comparison.entities %}
+                            <td>{{ entity.max_capacity|default('N/A') }} ml</td>
+                        {% endfor %}
+                    </tr>
+                    <tr>
+                        <td>Average Capacity</td>
+                        {% for entity in comparison.entities %}
+                            <td>{{ entity.average_capacity|round(2, 'floor')|default('N/A') }} ml</td>
+                        {% endfor %}
+                    </tr>
                 </tbody>
             </table>
         </div>
