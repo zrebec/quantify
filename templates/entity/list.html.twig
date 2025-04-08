@@ -59,7 +59,7 @@
                                 <td>
                                     <a href="/entity/{{ entity.id }}">{{ entity.brand }}</a>
                                 </td>
-                                <td>{{ entity.net_weight }} g</td>
+                                <td>{{ entity.properties.net_weight }} g</td>
                                 <td>
                                     {{ entity.measurement_count|default(0) }}
                                     {% if entity.measurement_count == 1 %}

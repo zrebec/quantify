@@ -1,4 +1,5 @@
 -- Drop existing tables if they exist
+DROP TABLE IF EXISTS entitiy_properties;
 DROP TABLE IF EXISTS measurements;
 DROP TABLE IF EXISTS entities;
 
@@ -7,9 +8,16 @@ CREATE TABLE entities (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     brand VARCHAR(255) NOT NULL,             -- Entity brand/name
     link VARCHAR(255) DEFAULT NULL,          -- Link to the entity
-    net_weight INTEGER NOT NULL,             -- Net weight in grams
     description TEXT,                        -- Full entity description
     design VARCHAR(50)                       -- Design information (e.g. "3/5")
+);
+
+CREATE TABLE entitiy_properties (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    entity_id INTEGER NOT NULL,
+    property_name VARCHAR(30) NOT NULL,     -- Property name (e.g. "Retention")
+    property_value VARCHAR(255) NOT NULL,         -- Property value (e.g. 1000)
+    FOREIGN KEY (entity_id) REFERENCES entities(id)
 );
 
 -- Measurement results to store individual test results

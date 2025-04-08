@@ -1,6 +1,6 @@
 <div class="card mb-4">
     <div class="card-header bg-success text-white">
-        <h5 class="mb-0">Product Feature Comparison</h5>
+        <h5 class="mb-0">Entity Feature Comparison</h5>
     </div>
     <div class="card-body">
         <div class="table-responsive">
@@ -15,12 +15,12 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {% for entity in comparison.entities %}
+                    {% for entity in comparison.products %}
                     <tr>
                         <td>
                             <a href="/product/{{ entity.id }}">{{ entity.brand }}</a>
                         </td>
-                        <td>{{ entity.net_weight }} g</td>
+                        <td>{{ entity.properties.net_weight }} g</td>
                         <td>{{ entity.design|default('-') }}</td>
                         <td>{{ entity.max_capacity }} ml</td>
                         <td>{{ entity.average_capacity|round(2, 'floor') }} ml</td>

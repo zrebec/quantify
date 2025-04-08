@@ -6,56 +6,78 @@ use Exception;
 require_once 'Database.php';
 
 class ImportFromJSON {
-    private $pdo;
+    private $db;
 
     public function __construct(Database $db) {
-        $this->pdo = $db->getPDO();
+        $this->db = $db->getPDO();
     }
 
-    public function importEntities(string $filePath) {
-        $stmt = $this->pdo->prepare("
-            INSERT INTO entities 
-            (brand, link, net_weight, design, description) 
-            VALUES (?, ?, ?, ?, ?)
-        ");
+    public function importEntities($jsonPath) {
+        $data = json_decode(file_get_contents($jsonPath), true);
 
-        $data = $this->parseJson($filePath);
-        foreach ($data as $row) {
+        foreach ($data['entities'] as $entity) {
+            $stmt = $this->db->prepare('
+                INSERT INTO entities (brand, link, description, design)
+                VALUES (:brand, :link, :description, :design)
+            ');
+
             $stmt->execute([
-                $row['brand'],
-                $row['link'] ?? null,
-                intval($row['net weight']),
-                $row['design'] ?? null,
-                $row['description'] ?? null,
+                ':brand' => $entity['brand'],
+                ':link' => $entity['link'],
+                ':description' => $entity['description'] ?? null,
+                ':design' => $entity['design'] ?? null
             ]);
         }
-        echo "Entities imported successfully.\n";
     }
 
-    public function importMeasurements(string $filePath) {
-        $stmt = $this->pdo->prepare("
-            INSERT INTO measurements 
-            (entity_id, date, value, saturation, note) 
-            VALUES ((SELECT id FROM entities WHERE brand = ?), ?, ?, ?, ?)
-        ");
+    public function importEntityProperties($jsonPath) {
+        $data = json_decode(file_get_contents($jsonPath), true);
 
-        $data = $this->parseJson($filePath);
-        foreach ($data as $row) {
-            if (!isset($row['measurements'])) {
-                continue;
-            }
+        foreach ($data['entities'] as $entity) {
+            $entityId = $this->getEntityIdByBrand($entity['brand']);
 
-            foreach ($row['measurements'] as $measurement) {
+            foreach ($entity['properties'] as $propertyName => $propertyValue) {
+                $stmt = $this->db->prepare('
+                    INSERT INTO entitiy_properties (entity_id, property_name, property_value)
+                    VALUES (:entity_id, :property_name, :property_value)
+                ');
+
                 $stmt->execute([
-                    $row['brand'],
-                    $measurement['date'] ?? '1970-01-01',
-                    intval($measurement['value']),
-                    intval($measurement['saturation']),
-                    $measurement['note'] ?? null,
+                    ':entity_id' => $entityId,
+                    ':property_name' => $propertyName,
+                    ':property_value' => (string)$propertyValue
                 ]);
             }
         }
-        echo "Measurements imported successfully.\n";
+    }
+
+    public function importMeasurements($jsonPath) {
+        $data = json_decode(file_get_contents($jsonPath), true);
+
+        foreach ($data['entities'] as $entity) {
+            $entityId = $this->getEntityIdByBrand($entity['brand']);
+
+            foreach ($entity['measurements'] as $measurement) {
+                $stmt = $this->db->prepare('
+                    INSERT INTO measurements (entity_id, value, saturation, note, date)
+                    VALUES (:entity_id, :value, :saturation, :note, :date)
+                ');
+
+                $stmt->execute([
+                    ':entity_id' => $entityId,
+                    ':value' => $measurement['value'],
+                    ':saturation' => $measurement['saturation'],
+                    ':note' => $measurement['note'] ?? null,
+                    ':date' => $measurement['date'] ?? '1970-01-01'
+                ]);
+            }
+        }
+    }
+
+    private function getEntityIdByBrand($brand) {
+        $stmt = $this->db->prepare('SELECT id FROM entities WHERE brand = :brand');
+        $stmt->execute([':brand' => $brand]);
+        return $stmt->fetchColumn();
     }
 
     private function parseJson(string $filePath): array {

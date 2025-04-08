@@ -13,6 +13,7 @@ try {
     // Import from JSON
     $importJson = new App\ImportFromJSON($db);
     $importJson->importEntities($jsonPath);
+    $importJson->importEntityProperties($jsonPath);
     $importJson->importMeasurements($jsonPath);
 
     echo "Import completed successfully.\n";

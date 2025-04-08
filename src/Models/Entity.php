@@ -23,7 +23,6 @@ class Entity
             'id',
             'brand',
             'link',
-            'net_weight',
             'description',
             'design'
         ], [
@@ -40,14 +39,16 @@ class Entity
     public function getEntityMeasurements(array &$entity): void
     {
         $measurements = $this->db->select('measurements', ['value'], [
-            'entity_id' => $entity['id']
+            'entity_id' => $entity['id'],
         ]);
 
         $measurementValues = array_column($measurements, 'value');
+
         
+        $entity['properties'] = $this->getEntityProperties($entity['id']);
         $entity['measurement_count'] = count($measurementValues);
         $entity['max_capacity'] = $measurementValues ? max($measurementValues) : 0;
-        $entity['average_capacity'] = $measurementValues ? floor(array_sum($measurementValues) / count($measurementValues)) - $entity['net_weight'] : 0;
+        $entity['average_capacity'] = $measurementValues ? floor(array_sum($measurementValues) / count($measurementValues)) - $entity['properties']['net_weight'] : 0;
         $entity['safe_use'] = floor($entity['average_capacity'] / 250);
     }
     
@@ -62,14 +63,16 @@ class Entity
             'id',
             'brand',
             'link',
-            'net_weight',
             'description',
             'design'
         ], [
             'id' => $id
         ]);
-
+    
         if (!$entity) return null;
+    
+        // Get entity properties
+        $entity['properties'] = $this->getEntityProperties($id);
     
         // Get measurement results for this entity
         $results = $this->db->select('measurements', [
@@ -99,10 +102,27 @@ class Entity
             }, array_keys($results)),
             'values' => array_column($results, 'value')
         ];
-
+    
         // Add measurements to the entity
         $this->getEntityMeasurements($entity);
         return $entity;
+    }
+
+    private function getEntityProperties(int $entityId): array
+    {
+        $properties = $this->db->select('entitiy_properties', [
+            'property_name',
+            'property_value'
+        ], [
+            'entity_id' => $entityId
+        ]);
+
+        $result = [];
+        foreach ($properties as $property) {
+            $result[$property['property_name']] = $property['property_value'];
+        }
+
+        return $result;
     }
     
     /**
@@ -122,6 +142,7 @@ class Entity
         foreach ($entityIds as $id) {
             $product = $this->getEntityWithMeasurements($id);
             if ($product) {
+                $product['properties'] = $this->getEntityProperties($id);
                 $products[] = $product;
                 
         
