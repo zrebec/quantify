@@ -1,13 +1,13 @@
-# Product Analysis Tool
+# Analysis and Comparsion Tool
 
-A web application for comparing and analyzing product resuts data.
+A web application for comparing and analyzing entities resuts data.
 
 ## Overview
 
 This tool allows users to:
-- View a list of products with their specifications
-- Compare multiple products based on their measurements results
-- Analyze detailed product performance across different testing levels
+- View a list of entities with their specifications
+- Compare multiple entities based on their measurements results
+- Analyze detailed entity performance across different testing levels
 
 ## Tech Stack
 
@@ -43,8 +43,8 @@ project/
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/your-username/product-analysis-tool.git
-cd product-analysis-tool
+git clone https://github.com/your-username/analysis-comparsion-tool.git
+cd analysis-comparsion-tool
 ```
 
 2. Install dependencies:
@@ -70,15 +70,15 @@ php -S localhost:8000 -t public
 
 The application uses a simple data model with two main tables:
 
-1. **Products** - Basic product information
+1. **Entities** - Basic entity information
    - ID
-   - Brand (product name)
+   - Brand (entity name)
    - Net weight
    - Description
    - Design information
 
-2. **Measurement Results** - Test results for each product
-   - Product ID
+2. **Measurement Results** - Measurement results for each entity
+   - Entity ID
    - Measurement value (ml)
 
 

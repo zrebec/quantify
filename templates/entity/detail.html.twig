@@ -14,16 +14,16 @@
 		<div
 			class="row">
 
-			<!-- Product information -->
+			<!-- Entity information -->
 			<div class="col-md-4">
-				{% include 'partials/product_info.html.twig' %}
+				{% include 'partials/entity_info.html.twig' %}
 			</div>
 
 			<!-- Chart -->
 			<div class="col-md-8">
 				<div class="card-body">
 					{% include 'partials/chart.html.twig' with {
-						title: 'Product Usage Capacity by Level',
+						title: 'Entity Measurements',
     					chart_id: 'resultsChart',
     					labels: entity.chart_data.labels,
     					datasets: [{
@@ -55,6 +55,7 @@
 										<th>Measurement</th>
 										<th>Usage Value (ml)</th>
 										<th>Saturation</th>
+										<th>Comment</th>
 										<th>&nbsp;</th>
 									</tr>
 								</thead>
@@ -64,6 +65,7 @@
 										<td><input type="text" id="measurement_number" class="form-text" placeholder="Would be datetime here" disabled></td>
 										<td><input type="text" id="result_value" class="form-text" placeholder="Result Value"></td>
 										<td><input type="text" id="saturation" class="form-text" placeholder="Saturation"></td>
+										<td><input type="text" id="note" class="form-text w-100" placeholder="Note"></td>
 										<td>
 											<button id="add_result" class="btn btn-primary w-100">Add</button>
 										</td>
@@ -76,6 +78,7 @@
 												ml
 											</td>
 											<td>{{ result.saturation }}</td>
+											<td>{{ result.note }}</td>
 											<td>
 												<button class="btn btn-danger w-100">Delete</button>
 											</td>

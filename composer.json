@@ -1,6 +1,6 @@
 {
-    "name": "zrebec/product-analysis-tool",
-    "description": "Product comparision application",
+    "name": "zrebec/analysis-tool",
+    "description": "Analysis and comparision application",
     "type": "project",
     "require": {
         "php": ">=7.4",

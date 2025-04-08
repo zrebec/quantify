@@ -22,7 +22,7 @@ class EntityController
     }
     
     /**
-     * List all products
+     * List all entities
      */
     public function listEntities(Response $response, array $args): Response
     {
@@ -31,7 +31,7 @@ class EntityController
         try {
             return $this->view->render($response, 'entity/list.html.twig', [
                 'entities' => $entities,
-                'title' => 'Product Comparison'
+                'title' => 'Entity Comparison'
             ]);
         } catch (LoaderError|RuntimeError|SyntaxError $e) {
             echo "Twig render exception: " . $e->getMessage();
@@ -56,7 +56,7 @@ class EntityController
     }
     
     /**
-     * Compare multiple products
+     * Compare multiple entities
      */
     public function compareEntities(Request $request, Response $response, array $args): Response
     {
