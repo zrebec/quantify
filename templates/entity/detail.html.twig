@@ -1,55 +1,51 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
-	{{ entity.brand }}
-	- Details
+	{{ entity.brand }} - Details
 {% endblock %}
 
 {% block content %}
-	<div class="container mt-4">
-		{% include 'partials/breadcrumb.html.twig' with {
-			current: entity.brand } 
-		%}
+	<div class="container">
 
-		<div
-			class="row">
+		{% include 'partials/breadcrumb.html.twig' with { current: entity.brand } %}
 
-			<!-- Entity information -->
-			<div class="col-md-4">
-				{% include 'partials/entity_info.html.twig' %}
-			</div>
+		<div class="detail-grid">
+  			<!-- Entity information -->
+  			<div class="info-column">
+    			{% include 'partials/entity_info.html.twig' %}
+  			</div>
 
 			<!-- Chart -->
-			<div class="col-md-8">
+			<div class="column">
 				<div class="card-body">
 					{% include 'partials/chart.html.twig' with {
 						title: 'Entity Measurements',
-    					chart_id: 'resultsChart',
-    					labels: entity.chart_data.labels,
-    					datasets: [{
-        					label: 'Usage Capacity (ml)',
-        					data: entity.chart_data.values,
-        					backgroundColor: entity.results|map(result => saturation_color(result.saturation)),
-        					borderColor: entity.results|map(result => saturation_color(result.saturation)),
-        					borderWidth: 2,
-        					type: 'bar',
-        					fill: true,
-        					tension: 0.1
-    					}],
+						chart_id: 'resultsChart',
+						labels: entity.chart_data.labels,
+						datasets: [{ 
+							label: 'Usage Capacity (ml)',
+							data: entity.chart_data.values,
+							backgroundColor: entity.results|map(result => saturation_color(result.saturation)),
+							borderColor: entity.results|map(result => saturation_color(result.saturation)),
+							borderWidth: 2,
+							type: 'bar',
+							fill: true,
+							tension: 0.1
+						}],
 						gradient: true
 					} %}
 				</div>
 			</div>
 
 			<!-- Test results table -->
-			<div class="col-md-12 mt-4">
+			<div class="full-column">
 				<div class="card">
-					<div class="card-header bg-primary text-white">
-						<h5 class="mb-0">Detailed Test Results</h5>
+					<div class="card-header">
+						<h5>Detailed Test Results</h5>
 					</div>
 					<div class="card-body">
-						<div class="table-responsive">
-							<table class="table table-striped">
+						<div class="table-wrapper">
+							<table class="product-table">
 								<thead>
 									<tr>
 										<th>Measurement</th>
@@ -62,25 +58,22 @@
 								<tbody>
 									<tr>
 										<input type="hidden" id="entity_id" value="{{ entity.id }}">
-										<td><input type="text" id="measurement_number" class="form-text" placeholder="Would be datetime here" disabled></td>
-										<td><input type="text" id="result_value" class="form-text" placeholder="Result Value"></td>
-										<td><input type="text" id="saturation" class="form-text" placeholder="Saturation"></td>
-										<td><input type="text" id="note" class="form-text w-100" placeholder="Note"></td>
+										<td><input type="text" id="measurement_number" class="text-input" placeholder="Would be datetime here" disabled></td>
+										<td><input type="text" id="result_value" class="text-input" placeholder="Result Value"></td>
+										<td><input type="text" id="saturation" class="text-input" placeholder="Saturation"></td>
+										<td><input type="text" id="note" class="text-input full-width" placeholder="Note"></td>
 										<td>
-											<button id="add_result" class="btn btn-primary w-100">Add</button>
+											<button id="add_result" class="button primary full-width">Add</button>
 										</td>
 									</tr>
 									{% for result in entity.results %}
 										<tr>
-											<td>Measurement
-												{{ result.measurement_number }}</td>
-											<td>{{ result.result_value }}
-												ml
-											</td>
+											<td>Measurement {{ result.measurement_number }}</td>
+											<td>{{ result.result_value }} ml</td>
 											<td>{{ result.saturation }}</td>
 											<td>{{ result.note }}</td>
 											<td>
-												<button class="btn btn-danger w-100">Delete</button>
+												<button class="button danger full-width">Delete</button>
 											</td>
 										</tr>
 									{% endfor %}
@@ -92,9 +85,9 @@
 			</div>
 		</div>
 
-		<div class="mt-4">
-			<a href="/" class="btn btn-secondary">Back to Product List</a>
-			<a href="/compare?ids={{ entity.id }}" class="btn btn-primary">Compare With Others</a>
+		<div class="form-footer">
+			<a href="/" class="button secondary">Back to Product List</a>
+			<a href="/compare?ids={{ entity.id }}" class="button primary">Compare With Others</a>
 		</div>
 	</div>
 {% endblock %}

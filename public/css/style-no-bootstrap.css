@@ -1,0 +1,237 @@
+/** === RESET & BOX MODEL === **/
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/** === CSS VARIABLES === **/
+:root {
+  --color-primary: oklch(62% 0.22 265);
+  --color-secondary: oklch(90% 0.02 256);
+  --color-bg: #ffffff;
+  --color-text: #222;
+  --color-border: #ccc;
+
+  --space-sm: 0.5rem;
+  --space-md: 1rem;
+  --space-lg: 2rem;
+
+  --radius: 0.5rem;
+  --shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+/** === GLOBAL LAYOUT & TYPOGRAPHY === **/
+body {
+  font-family: system-ui, sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+  background: var(--color-bg);
+  color: var(--color-text);
+}
+
+.container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: var(--space-lg);
+}
+
+/** === GRID STRUCTURE === **/
+.detail-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+  align-items: start;
+}
+
+.full-column {
+  grid-column: 1 / -1;
+}
+
+/** === NAVBAR === **/
+.navbar {
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  box-shadow: var(--shadow);
+  padding: var(--space-sm) var(--space-lg);
+}
+
+.navbar .navbar-inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.navbar .navbar-title {
+  font-size: 1.25rem;
+  font-weight: bold;
+  color: var(--color-primary);
+  text-decoration: none;
+}
+
+.navbar .navbar-links {
+  display: flex;
+  gap: var(--space-sm);
+}
+
+.navbar .navbar-links a {
+  color: var(--color-primary);
+  text-decoration: none;
+  font-weight: 500;
+  padding: var(--space-xs) var(--space-sm);
+  transition: color 0.2s;
+}
+
+.navbar .navbar-links a:hover {
+  color: var(--color-secondary);
+  text-decoration: underline;
+}
+
+/** === CARD === **/
+.card {
+  background: white;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  margin-bottom: var(--space-lg);
+  box-shadow: var(--shadow);
+}
+
+.card-header {
+  background-color: var(--color-secondary);
+  padding: var(--space-sm) var(--space-md);
+  border-bottom: 1px solid var(--color-border);
+  border-top-left-radius: var(--radius);
+  border-top-right-radius: var(--radius);
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.card-title {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.card-body {
+  padding: var(--space-md);
+}
+
+/** === BREADCRUMB === **/
+.breadcrumb {
+  display: flex;
+  flex-wrap: wrap;
+  list-style: none;
+  padding: 0;
+  margin: var(--space-md) 0;
+  font-size: 0.875rem;
+  gap: 0.5rem;
+}
+
+.breadcrumb-item::after {
+  content: "/";
+  margin-left: 0.5rem;
+  color: var(--color-border);
+}
+
+.breadcrumb-item:last-child::after {
+  content: none;
+}
+
+.breadcrumb-item a {
+  text-decoration: none;
+  color: var(--color-primary);
+  transition: color 0.2s;
+}
+
+.breadcrumb-item a:hover {
+  text-decoration: underline;
+  color: var(--color-secondary);
+}
+
+.breadcrumb-item.is-active {
+  font-weight: bold;
+  color: var(--color-text);
+  cursor: default;
+}
+
+/** === TABLES === **/
+.table-wrapper {
+  overflow-x: auto;
+}
+
+.product-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: var(--space-md);
+}
+
+.product-table th,
+.product-table td {
+  vertical-align: top;
+  padding: var(--space-sm);
+  border: 1px solid var(--color-border);
+  text-align: left;
+}
+
+.product-table tbody tr:nth-child(even) {
+  background: var(--color-secondary);
+}
+
+/** === FORM INPUTS === **/
+.text-input {
+  width: 100%;
+  padding: var(--space-sm);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+}
+
+.checkbox input {
+  transform: scale(1.2);
+  margin: var(--space-xs);
+}
+
+.form-footer {
+  margin-top: var(--space-lg);
+  text-align: right;
+}
+
+/** === BUTTONS === **/
+.button {
+  padding: var(--space-sm) var(--space-md);
+  border: none;
+  border-radius: var(--radius);
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-block;
+  font-weight: 600;
+  transition: background 0.3s ease;
+}
+
+.button.primary {
+  background: var(--color-primary);
+  color: white;
+}
+
+.button.secondary {
+  background: transparent;
+  border: 1px solid var(--color-primary);
+  color: var(--color-primary);
+}
+
+.button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/** === RESPONSIVE === **/
+@media (max-width: 768px) {
+  .detail-grid {
+    grid-template-columns: 1fr;
+  }
+}

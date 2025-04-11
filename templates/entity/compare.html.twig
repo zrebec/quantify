@@ -1,44 +1,34 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Product Comparison
-{% endblock %}
+{% block title %}Entity Comparison{% endblock %}
 
 {% block content %}
+<div class="container comparison-view">
+  {% include 'partials/breadcrumb.html.twig' with { current: "Multiple products comparsion" } %}
 
-{% set colors = chart_colors() %}
+  <div class="chart-section">
+    {% set colors = chart_colors() %}
+    {% set datasets = [] %}
+    {% for dataset in comparison.comparison_data.datasets %}
+      {% set dataset_with_colors = dataset|merge({ 'colorClass': colors[loop.index0 % colors|length] }) %}
+      {% set datasets = datasets|merge([dataset_with_colors]) %}
+    {% endfor %}
 
-<div class="container mt-4">
-    {% include 'partials/breadcrumb.html.twig' with {
-			current: "Multiple products comparsion" } 
-    %}
+    {% include 'partials/chart.html.twig' with {
+      'title': 'Product measurements comparison',
+      'chart_id': 'comparisonChart',
+      'labels': comparison.comparison_data.labels,
+      'datasets': datasets,
+      'gradient': false
+    } %}
+  </div>
 
-    <div class="row">
-        <div class="col-md-12">
-            {% set datasets = [] %}
-            {% for dataset in comparison.comparison_data.datasets %}
-                {% set dataset_with_colors = dataset|merge({
-                    'colorClass': colors[loop.index0 % colors|length]
-                }) %}
-                {% set datasets = datasets|merge([dataset_with_colors]) %}
-            {% endfor %}
+  <div class="table-section">
+    {% include 'partials/measurement_table.html.twig' %}
+  </div>
 
-            {% include 'partials/chart.html.twig' with {
-                'title': 'Product measurements comparison',
-                'chart_id': 'comparisonChart',
-                'labels': comparison.comparison_data.labels,
-                'datasets': datasets,
-                'gradient': false
-            } %}
-        </div>
-        <div class="row">
-            <div class="col-md-12">
-                {% include 'partials/measurement_table.html.twig' %}
-            </div>
-        </div>
-    </div>
-
-    <div class="mt-4">
-        <a href="/" class="btn btn-secondary">Back to Product List</a>
-    </div>
+  <div class="back-button">
+    <a href="/" class="button secondary">Back to Product List</a>
+  </div>
 </div>
 {% endblock %}
