@@ -4,7 +4,7 @@
 
 {% block content %}
 <div class="container comparison-view">
-  {% include 'partials/breadcrumb.html.twig' with { current: "Multiple products comparsion" } %}
+  {% include 'partials/breadcrumb.html.twig' with { current: "Multiple entities comparsion" } %}
 
   <div class="chart-section">
     {% set colors = chart_colors() %}
@@ -15,7 +15,7 @@
     {% endfor %}
 
     {% include 'partials/chart.html.twig' with {
-      'title': 'Product measurements comparison',
+      'title': 'Entities measurements comparison',
       'chart_id': 'comparisonChart',
       'labels': comparison.comparison_data.labels,
       'datasets': datasets,
@@ -28,7 +28,7 @@
   </div>
 
   <div class="back-button">
-    <a href="/" class="button secondary">Back to Product List</a>
+    <a href="/" class="button secondary">Back to Entity List</a>
   </div>
 </div>
 {% endblock %}
