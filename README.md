@@ -1,4 +1,4 @@
-# Analysis and Comparsion Tool
+# Quantify
 
 A web application for comparing and analyzing entities resuts data.
 
