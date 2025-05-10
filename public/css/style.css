@@ -84,6 +84,7 @@ body {
   font-weight: bold;
   color: var(--color-primary);
   text-decoration: none;
+  text-transform: uppercase;
 }
 
 .navbar .navbar-links {
@@ -177,21 +178,21 @@ body {
   overflow-x: auto;
 }
 
-.product-table {
+.entity-table {
   width: 100%;
   border-collapse: collapse;
   margin-top: var(--space-md);
 }
 
-.product-table th,
-.product-table td {
+.entity-table th,
+.entity-table td {
   vertical-align: top;
   padding: var(--space-sm);
   border: 1px solid var(--color-border);
   text-align: left;
 }
 
-.product-table tbody tr:nth-child(even) {
+.entity-table tbody tr:nth-child(even) {
   background: var(--color-secondary);
 }
 

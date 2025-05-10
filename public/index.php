@@ -38,18 +38,18 @@ $db = new Medoo([
 
 // Define routes
 $app->get('/', function (Request $request, Response $response, array $args) use ($db, $twig) {
-    $productController = new EntityController($db, $twig);
-    return $productController->listEntities($response, $args);
+    $entityController = new EntityController($db, $twig);
+    return $entityController->listEntities($response, $args);
 });
 
 $app->get('/entity/{id}', function (Request $request, Response $response, array $args) use ($db, $twig) {
-    $productController = new EntityController($db, $twig);
-    return $productController->showEntity($response, $args);
+    $entityController = new EntityController($db, $twig);
+    return $entityController->showEntity($response, $args);
 });
 
 $app->get('/compare', function (Request $request, Response $response, array $args) use ($db, $twig) {
-    $productController = new EntityController($db, $twig);
-    return $productController->compareEntities($request, $response, $args);
+    $entityController = new EntityController($db, $twig);
+    return $entityController->compareEntities($request, $response, $args);
 });
 
 // Run the application
