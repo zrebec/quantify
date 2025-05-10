@@ -17,13 +17,14 @@ class ImportFromJSON {
 
         foreach ($data['entities'] as $entity) {
             $stmt = $this->db->prepare('
-                INSERT INTO entities (brand, link, description, design)
-                VALUES (:brand, :link, :description, :design)
+                INSERT INTO entities (brand, link, image, description, design)
+                VALUES (:brand, :link, :image, :description, :design)
             ');
 
             $stmt->execute([
                 ':brand' => $entity['brand'],
                 ':link' => $entity['link'],
+                ':image' => $entity['image'] ?? null,
                 ':description' => $entity['description'] ?? null,
                 ':design' => $entity['design'] ?? null
             ]);

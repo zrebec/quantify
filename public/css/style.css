@@ -241,6 +241,15 @@ body {
   cursor: not-allowed;
 }
 
+.card-image {
+  text-align: center;
+}
+
+.img-fluid {
+  width: auto;
+  max-height: 15rem;
+}
+
 /** === GRAPH COLORS === **/
 .color-1 {
   background-color: var(--chart-color-1-bg);

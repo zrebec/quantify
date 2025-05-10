@@ -8,6 +8,7 @@ CREATE TABLE entities (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     brand VARCHAR(255) NOT NULL,             -- Entity brand/name
     link VARCHAR(255) DEFAULT NULL,          -- Link to the entity
+    image VARCHAR(255) DEFAULT NULL,         -- Image URL
     description TEXT,                        -- Full entity description
     design VARCHAR(50)                       -- Design information (e.g. "3/5")
 );

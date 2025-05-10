@@ -62,6 +62,7 @@ class Entity
         $entity = $this->db->get('entities', [
             'id',
             'brand',
+            'image',
             'link',
             'description',
             'design'

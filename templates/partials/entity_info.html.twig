@@ -3,6 +3,11 @@
         <h5 class="card-title">Entity Information</h5>
     </div>
     <div class="card-body">
+        {% if entity.image %}
+            <div class="card-image">
+                <img src="{{ entity.image }}" alt="{{ entity.brand }} image" class="img-fluid">
+            </div>
+        {% endif %}
         <h1>{{ entity.brand }}
             <a href="{{ entity.link }}" target="_blank" class="icon-link icon-link-href">
                 <img src="/assets/images/link.svg" alt="Link icon">
