@@ -1,24 +1,33 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Entity List{% endblock %}
+{% block title %}Quantify - Entity List{% endblock %}
 
 {% block content %}
 <div class="container entity-list wide">
-  <h1>Entity Comparison Tool</h1>
-    <form id="compare-form" action="/compare" method="get">
+  <form id="compare-form" action="/compare" method="get">
     <div class="entity-card">
       {% for entity in entities %}
-          <div class="entity-card__entity">
-            <div class="card-image">
-              {% if entity.image %}
-                <img src="{{ entity.image }}" alt="{{ entity.brand }} image" class="entity-image">
-              {% endif %}
-            </div>
-            <div>
-              <h2>{{ entity.brand }}</h2>
-              <p><strong>Net Weight:</strong> {{ entity.properties.net_weight }} g</p>
-              <p><strong>Design:</strong> {{ entity.design }}</p>
-              <table class="entity-table">
+        <div class="entity-card__entity">
+          {% if entity.image %}
+          <div class="card-image">
+          <a href="/entity/{{ entity.id }}">
+            <img src="{{ entity.image }}" alt="{{ entity.brand }} image" class="entity-image">
+          </a>
+          </div>
+          {% endif %}
+
+          <div>
+            <h2>{{ entity.brand }}</h2>
+            <h2><strong>{{ entity.properties.net_weight }} g</strong></h2>
+            <h2>
+            {% if entity.design > 0 %}
+              {% for i in range(0, entity.design  - 1) %}<i class="fa fa-rating-design"></i>{% endfor %}
+            {% else %}
+              <i class="fa fa-not-rated"></i>
+            {% endif %}
+            </h2>
+            
+            <table class="entity-table">
               <thead>
                 <tr>
                   <th>Counter</th>
@@ -54,25 +63,31 @@
                 </tr>
               </tbody>
             </table>
-            <p>{{ entity.description }}</p>
+
+            {% if entity.description %}
+              <p>{{ entity.description }}</p>
+            {% endif %}
+          </div>
+
+          <div class="entity-card__actions">
             <label class="button primary checkbox">
               <input class="entity-select" type="checkbox" name="entity[]" value="{{ entity.id }}" id="entity-{{ entity.id }}">
             </label>
             <a href="/entity/{{ entity.id }}" class="button primary">View Details</a>
           </div>
-          </div>
+        </div>
       {% endfor %}
     </div>
-    </form>
-    <div class="card-header">
-      <h5 class="card-title">Entities Available for Comparison</h5>
-    </div>
+
     <div class="form-footer">
-          <button type="button" id="compare-btn" class="button primary" disabled>
-            Compare Selected Entities
-          </button>
-        </div>
+      <button type="button" id="compare-btn" class="button primary" disabled>
+        Compare Selected Entities
+      </button>
+    </div>
+  </form>
+</div>
 {% endblock %}
+
 
 {% block scripts %}
 <script>

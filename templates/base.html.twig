@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}Quantify{% endblock %}</title>
+    <link rel="icon" href="/favicon.svg" type="image/x-icon">
 
     <!-- Custom CSS -->
     <link rel="stylesheet" href="/css/style.css">
@@ -16,7 +17,10 @@
 <body>
     <nav class="navbar">
         <div class="container navbar-inner">
-            <a class="navbar-title" href="/">Quantify</a>
+            <div style="display: flex; align-items: center;">
+                <img src="/favicon.svg" alt="Quantify logo" class="navbar-logo">
+                <h1><a class="navbar-title" href="/">Quantify</a></h1>
+            </div>
             <div class="navbar-links">
                 <a href="/new">New</a>
                 <a href="/">Entities</a>

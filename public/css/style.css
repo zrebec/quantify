@@ -284,22 +284,61 @@ body {
   }
 }
 
+.entity-list {
+  text-align: center;
+}
+
+.entity-list__header {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  margin-top: var(--space-lg);
+}
+
+.entity-list__header h1 {
+  padding-left: var(--space-lg);
+  text-transform: uppercase;
+  font-size: clamp(1.5rem, 2vw + 1rem, 2.5rem);
+}
+
 .entity-card {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   gap: var(--space-md);
-  justify-content: center;
+  justify-content: flex-start;
 }
 
 .entity-card__entity {
-  width: 100%;
+  display: flex;
+  flex-direction: column;
   max-width: 27rem;
   background-color: white;
   text-align: center;
   padding: 1rem auto;
 }
 
-.entity-image {
+.entity-card__entity img {
   width: 100%;
+}
+
+.entity-card__actions {
+  margin-top: auto;
+}
+
+.fa {
+  font-style: normal;
+}
+
+.fa-rating-design::before {
+  content: " 💘 ";
+}
+
+.fa-not-rated {
+  color: transparent;
+  text-shadow: 0 0 0 grey;
+}
+
+.fa-not-rated::before {
+  content: "💔";
 }
