@@ -2,6 +2,7 @@
 DROP TABLE IF EXISTS entitiy_properties;
 DROP TABLE IF EXISTS measurements;
 DROP TABLE IF EXISTS entities;
+DROP TABLE IF EXISTS entity_images;
 
 -- Entities table to store basic entity information
 CREATE TABLE entities (
@@ -18,6 +19,14 @@ CREATE TABLE entitiy_properties (
     entity_id INTEGER NOT NULL,
     property_name VARCHAR(30) NOT NULL,     -- Property name (e.g. "Retention")
     property_value VARCHAR(255) NOT NULL,         -- Property value (e.g. 1000)
+    FOREIGN KEY (entity_id) REFERENCES entities(id)
+);
+
+CREATE TABLE entity_images (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    entity_id INTEGER NOT NULL,
+    image_url VARCHAR(255) NOT NULL,        -- Image URL
+    image_alt VARCHAR(255) DEFAULT NULL,    -- Image alt text
     FOREIGN KEY (entity_id) REFERENCES entities(id)
 );
 
