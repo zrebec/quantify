@@ -332,7 +332,11 @@ body {
 }
 
 .fa-rating-design::before {
-  content: " 💘 ";
+  content: "💘";
+}
+
+.fa-rating-capacity::before {
+  content: "💧";
 }
 
 .fa-not-rated {
