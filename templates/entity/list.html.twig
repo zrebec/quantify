@@ -5,107 +5,73 @@
 {% block content %}
 <div class="container entity-list wide">
   <h1>Entity Comparison Tool</h1>
-
-  <div class="card">
+    <form id="compare-form" action="/compare" method="get">
+    <div class="entity-card">
+      {% for entity in entities %}
+          <div class="entity-card__entity">
+            <div class="card-image">
+              {% if entity.image %}
+                <img src="{{ entity.image }}" alt="{{ entity.brand }} image" class="entity-image">
+              {% endif %}
+            </div>
+            <div>
+              <h2>{{ entity.brand }}</h2>
+              <p><strong>Net Weight:</strong> {{ entity.properties.net_weight }} g</p>
+              <p><strong>Design:</strong> {{ entity.design }}</p>
+              <table class="entity-table">
+              <thead>
+                <tr>
+                  <th>Counter</th>
+                  <th>Max Capacity</th>
+                  <th>Avg. Capacity</th>
+                  <th>Safe use</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr class="entity-row">
+                  <td>
+                    {{ entity.measurement_count|default(0) }}
+                    {% if entity.measurement_count == 1 %}
+                      meranie
+                    {% elseif entity.measurement_count > 1 and entity.measurement_count < 5 %}
+                      merania
+                    {% else %}
+                      meraní
+                    {% endif %}
+                  </td>
+                  <td>{{ entity.max_capacity|default(0) }} ml</td>
+                  <td>{{ entity.average_capacity|number_format(0) }} ml</td>
+                  <td>
+                    {{ entity.safe_use|default('0') }}
+                    {% if entity.safe_use == 1 %}
+                      použitie
+                    {% elseif entity.safe_use > 1 and entity.safe_use < 5 %}
+                      použitia
+                    {% else %}
+                      použití
+                    {% endif %}
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <p>{{ entity.description }}</p>
+            <label class="button primary checkbox">
+              <input class="entity-select" type="checkbox" name="entity[]" value="{{ entity.id }}" id="entity-{{ entity.id }}">
+            </label>
+            <a href="/entity/{{ entity.id }}" class="button primary">View Details</a>
+          </div>
+          </div>
+      {% endfor %}
+    </div>
+    </form>
     <div class="card-header">
       <h5 class="card-title">Entities Available for Comparison</h5>
     </div>
-    <div class="card-body">
-      <form id="compare-form" action="/compare" method="get">
-        <div class="table-wrapper">
-          <table class="entity-table">
-            <thead>
-              <tr>
-                <th>Compare</th>
-                <th>Entity</th>
-                <th>Net Weight</th>
-                <th>Counter</th>
-                <th>Max Capacity</th>
-                <th>Avg. Capacity</th>
-                <th>Safe use</th>
-                <th>Design</th>
-                <th>Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td></td>
-                <td><input type="text" id="result_value" class="text-input" placeholder="Name of new entities"></td>
-                <td><input type="text" id="result_value" class="text-input" placeholder="Net weight"></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td><input type="text" id="result_value" class="text-input" placeholder="Design"></td>
-                <td><a href="/entity/create" class="button primary">Add</a></td>
-              </tr>
-              {% for entity in entities %}
-              <tr class="entity-row">
-                <td>
-                  <label class="checkbox">
-                    <input class="entity-select" type="checkbox" name="entity[]" value="{{ entity.id }}" id="entity-{{ entity.id }}">
-                  </label>
-                </td>
-                <td><a href="/entity/{{ entity.id }}">{{ entity.brand }}</a></td>
-                <td>{{ entity.properties.net_weight }} g</td>
-                <td>
-                  {{ entity.measurement_count|default(0) }}
-                  {% if entity.measurement_count == 1 %}
-                    meranie
-                  {% elseif entity.measurement_count > 1 and entity.measurement_count < 5 %}
-                    merania
-                  {% else %}
-                    meraní
-                  {% endif %}
-                </td>
-                <td>{{ entity.max_capacity|default(0) }} ml</td>
-                <td>{{ entity.average_capacity|number_format(0) }} ml</td>
-                <td>
-                  {{ entity.safe_use|default('0') }}
-                  {% if entity.safe_use == 1 %}
-                    použitie
-                  {% elseif entity.safe_use > 1 and entity.safe_use < 5 %}
-                    použitia
-                  {% else %}
-                    použití
-                  {% endif %}
-                </td>
-                <td>{{ entity.design|default('-') }}</td>
-                <td>
-                  <a href="{{ entity.link }}" target="_blank" class="icon-link">
-                    <img src="/assets/images/link.svg" alt="Link icon">
-                  </a>
-                </td>
-              </tr>
-              {% endfor %}
-            </tbody>
-          </table>
-        </div>
-
-        <div class="form-footer">
+    <div class="form-footer">
           <button type="button" id="compare-btn" class="button primary" disabled>
             Compare Selected Entities
           </button>
         </div>
-      </form>
-    </div>
-  </div>
-
-  <div class="card">
-    <div class="card-header">
-      <h5 class="card-title">Usage Guide</h5>
-    </div>
-    <div class="card-body">
-      <p>This tool allows you to compare different entities based on their capacity levels.</p>
-      <p>How to use:</p>
-      <ol>
-        <li>Select entities you want to compare (up to 5)</li>
-        <li>Click "Compare Selected Entities" to see detailed comparison</li>
-        <li>Or click "Details" to see individual entity analysis</li>
-      </ol>
-    </div>
-  </div>
-</div>
 {% endblock %}
 
 {% block scripts %}

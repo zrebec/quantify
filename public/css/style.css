@@ -208,6 +208,10 @@ body {
   margin: var(--space-xs);
 }
 
+.checkbox::after {
+  content: "Comapre";
+}
+
 .form-footer {
   margin-top: var(--space-lg);
   text-align: right;
@@ -278,4 +282,24 @@ body {
   .detail-grid {
     grid-template-columns: 1fr;
   }
+}
+
+.entity-card {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: var(--space-md);
+  justify-content: center;
+}
+
+.entity-card__entity {
+  width: 100%;
+  max-width: 27rem;
+  background-color: white;
+  text-align: center;
+  padding: 1rem auto;
+}
+
+.entity-image {
+  width: 100%;
 }

@@ -23,6 +23,7 @@ class Entity
             'id',
             'brand',
             'link',
+            'image',
             'description',
             'design'
         ], [
