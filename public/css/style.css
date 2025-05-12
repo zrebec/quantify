@@ -132,7 +132,7 @@ body {
 }
 
 .card-body {
-  padding: var(--space-md);
+  padding: 0 var(--space-md);
 }
 
 /** === BREADCRUMB === **/
