@@ -6,8 +6,24 @@
 
 {% block content %}
 	<div class="container">
-
 		{% include 'partials/breadcrumb.html.twig' with { current: entity.brand } %}
+
+		<div class="card">
+			<div class="card-header">
+        		<h5 class="card-title">Entity Information</h5>
+    		</div>
+			<div class="card-body">
+				<h1>{{ entity.brand }}
+					<a href="{{ entity.link }}" target="_blank" class="icon-link icon-link-href">
+						<img src="/assets/images/link.svg" alt="Link icon">
+					</a>
+				</h1>
+				<p><strong>Net Weight</strong>: {{ entity.properties.net_weight }}g</p>
+				<p><strong>Design</strong>: {{ entity.design }} / 5</p>
+				<p><strong>Description</strong>: {{ entity.description }}</p>
+			</div>
+		</div>
+		
 
 		<div class="detail-grid">
   			<!-- Entity information -->

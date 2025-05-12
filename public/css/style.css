@@ -53,8 +53,7 @@ body {
 /** === GRID STRUCTURE === **/
 .detail-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1.5rem;
+  grid-template-columns: 50% 50%;
   align-items: start;
 }
 
@@ -132,7 +131,7 @@ body {
 }
 
 .card-body {
-  padding: 0 var(--space-md);
+  padding: 0 calc(var(--space-md) / 2);
 }
 
 /** === BREADCRUMB === **/
@@ -247,8 +246,9 @@ body {
 }
 
 .img-fluid {
-  width: auto;
-  max-height: 15rem;
+  width: 100%;
+  max-height: auto;
+  object-fit: cover;
 }
 
 /** === GRAPH COLORS === **/
