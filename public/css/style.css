@@ -306,13 +306,13 @@ body {
   flex-direction: row;
   flex-wrap: wrap;
   gap: var(--space-md);
-  justify-content: flex-start;
+  justify-content: space-evenly;
 }
 
 .entity-card__entity {
   display: flex;
   flex-direction: column;
-  max-width: 27rem;
+  max-width: 20rem;
   background-color: white;
   text-align: center;
   padding: 1rem auto;
@@ -324,6 +324,7 @@ body {
 
 .entity-card__actions {
   margin-top: auto;
+  padding: var(--space-md) 0;
 }
 
 .fa {

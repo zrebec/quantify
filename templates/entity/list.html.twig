@@ -39,26 +39,12 @@
               <tbody>
                 <tr class="entity-row">
                   <td>
-                    {{ entity.measurement_count|default(0) }}
-                    {% if entity.measurement_count == 1 %}
-                      meranie
-                    {% elseif entity.measurement_count > 1 and entity.measurement_count < 5 %}
-                      merania
-                    {% else %}
-                      meraní
-                    {% endif %}
+                    {{ entity.measurement_count|default(0) }}x
                   </td>
                   <td>{{ entity.max_capacity|default(0) }} ml</td>
                   <td>{{ entity.average_capacity|number_format(0) }} ml</td>
                   <td>
-                    {{ entity.safe_use|default('0') }}
-                    {% if entity.safe_use == 1 %}
-                      použitie
-                    {% elseif entity.safe_use > 1 and entity.safe_use < 5 %}
-                      použitia
-                    {% else %}
-                      použití
-                    {% endif %}
+                    {{ entity.safe_use|default('0') }}x
                   </td>
                 </tr>
               </tbody>
