@@ -44,7 +44,11 @@
                   <td>{{ entity.max_capacity|default(0) }} ml</td>
                   <td>{{ entity.average_capacity|number_format(0) }} ml</td>
                   <td>
-                    {{ entity.safe_use|default('0') }}x
+                    {% if entity.safe_use > 0 %}
+                      {% for i in range(0, entity.safe_use - 1) %}<i class="fa fa-rating-safeuse"></i>{% endfor %}
+                    {% else %}
+                      <i class="fa fa-not-rated"></i>
+                    {% endif %}
                   </td>
                 </tr>
               </tbody>

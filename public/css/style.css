@@ -339,6 +339,10 @@ body {
   content: "💧";
 }
 
+.fa-rating-safeuse::before {
+  content: "💦";
+}
+
 .fa-not-rated {
   color: transparent;
   text-shadow: 0 0 0 grey;
