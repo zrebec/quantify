@@ -260,18 +260,22 @@ body {
   background-color: var(--chart-color-1-bg);
   color: var(--chart-color-1);
 }
+
 .color-2 {
   background-color: var(--chart-color-2-bg);
   color: var(--chart-color-2);
 }
+
 .color-3 {
   background-color: var(--chart-color-3-bg);
   color: var(--chart-color-3);
 }
+
 .color-4 {
   background-color: var(--chart-color-4-bg);
   color: var(--chart-color-4);
 }
+
 .color-5 {
   background-color: var(--chart-color-5-bg);
   color: var(--chart-color-5);
@@ -283,6 +287,80 @@ body {
     grid-template-columns: 1fr;
   }
 }
+
+.entity-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.5rem;
+  margin-top: 1rem;
+  padding: 1rem;
+  background: var(--card-bg, #f9f9f9);
+  border-radius: 0.5rem;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+}
+
+.entity-header {
+  font-weight: bold;
+  color: var(--text-muted, #666);
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  letter-spacing: 0.05em;
+}
+
+.entity-cell {
+  font-size: 1rem;
+  color: var(--text-normal, #222);
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 2.5rem;
+}
+
+.entity-cell {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.entity-grid--paired {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-sm);
+  background: var(--card-bg, #f9f9f9);
+  border-radius: var(--radius);
+  padding: var(--space-md);
+  margin-top: var(--space-md);
+  box-shadow: var(--shadow);
+}
+
+.entity-pair {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.entity-label {
+  font-size: 0.75rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  color: var(--text-muted, #666);
+  margin-bottom: 0.25rem;
+}
+
+.entity-value {
+  font-size: 1.1rem;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+
+@media (max-width: 600px) {
+  .entity-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
 
 .entity-list {
   text-align: center;

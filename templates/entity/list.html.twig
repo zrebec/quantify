@@ -26,34 +26,33 @@
               <i class="fa fa-not-rated"></i>
             {% endif %}
             </h2>
-            
-            <table class="entity-table">
-              <thead>
-                <tr>
-                  <th>x</th>
-                  <th>MAX</th>
-                  <th>AVG</th>
-                  <th>Safeuse</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr class="entity-row">
-                  <td>
-                    {{ entity.measurement_count|default(0) }}x
-                  </td>
-                  <td>{{ entity.max_capacity|default(0) }} ml</td>
-                  <td>{{ entity.average_capacity|number_format(0) }} ml</td>
-                  <td>
-                    {% if entity.safe_use > 0 %}
-                      {% for i in range(0, entity.safe_use - 1) %}<i class="fa fa-rating-safeuse"></i>{% endfor %}
-                    {% else %}
-                      <i class="fa fa-not-rated"></i>
-                    {% endif %}
-                  </td>
-                </tr>
-              </tbody>
-            </table>
 
+            <div class="entity-grid entity-grid--paired">
+              <div class="entity-pair">
+                <div class="entity-label">Counter</div>
+                <div class="entity-value">{{ entity.measurement_count|default(0) }}x</div>
+              </div>
+              <div class="entity-pair">
+                <div class="entity-label">MAX</div>
+                <div class="entity-value">{{ entity.max_capacity|default(0) }} ml</div>
+              </div>
+              <div class="entity-pair">
+                <div class="entity-label">AVG</div>
+                <div class="entity-value">{{ entity.average_capacity|number_format(0) }} ml</div>
+              </div>
+              <div class="entity-pair">
+                <div class="entity-label">SAFEUSE</div>
+                <div class="entity-value">
+                  {% if entity.safe_use > 0 %}
+                    {% for i in range(0, entity.safe_use - 1) %}
+                      <i class="fa fa-rating-safeuse"></i>
+                    {% endfor %}
+                  {% else %}
+                    <i class="fa fa-not-rated"></i>
+                  {% endif %}
+                </div>
+              </div>
+            </div>
             {% if entity.description %}
               <p>{{ entity.description }}</p>
             {% endif %}
