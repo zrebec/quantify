@@ -1,0 +1,197 @@
+{
+  "entity_properties": [
+    { "name": "capacity", "value": "Kapacita" },
+    { "name": "design", "value": "Dizajn" },
+    { "name": "comfort", "value": "Komfort" },
+    { "name": "durability", "value": "Odolnosť" },
+    { "name": "description", "value": "Popis" }
+  ],
+  "entities": [
+    {
+      "brand": "EcoSponge Premium A1",
+      "link": "https://example.com/products/ecosponge-premium-a1",
+      "image": "/images/ecosponge_premium_a1.png",
+      "properties": { "net_weight": 150 },
+      "measurements": [
+        {
+          "value": 245,
+          "saturation": 4,
+          "note": "Veľmi dobrá absorpcia, dlho vydrží"
+        },
+        {
+          "value": 189,
+          "saturation": 2,
+          "note": "Stále funkčné, ale už menej efektívne"
+        },
+        {
+          "value": 298,
+          "saturation": 5,
+          "note": "Dosiahnutá maximálna kapacita"
+        },
+        {
+          "value": 167,
+          "saturation": 2
+        },
+        {
+          "value": 234,
+          "saturation": 3
+        }
+      ],
+      "design": 4,
+      "comfort": 3,
+      "durability": 4,
+      "description": "Vysokovýkonná hubka s vynikajúcou absorpciou. Ideálna pre dlhodobé použitie."
+    },
+    {
+      "brand": "FlexiMax Standard B2",
+      "link": "https://example.com/products/fleximax-standard-b2",
+      "image": "/images/fleximax_standard_b2.png",
+      "properties": { "net_weight": 220 },
+      "measurements": [
+        {
+          "value": 412,
+          "saturation": 3,
+          "note": "Pomerne efektívne, ale trochu ťažké"
+        },
+        {
+          "value": 356,
+          "saturation": 2,
+          "note": "Dobre držiteľné, stabilné výsledky"
+        },
+        {
+          "value": 489,
+          "saturation": 4,
+          "note": "Blíži sa k maximu, ale stále použiteľné"
+        },
+        {
+          "value": 523,
+          "saturation": 5
+        },
+        {
+          "value": 278,
+          "saturation": 1
+        }
+      ],
+      "design": 3,
+      "comfort": 4,
+      "durability": 5,
+      "description": "Robustný produkt s výbornou trvanlivosťou. Vhodný pre náročné podmienky."
+    },
+    {
+      "brand": "UltraLite Compact C1",
+      "link": "https://example.com/products/ultralite-compact-c1",
+      "image": "/images/ultralite_compact_c1.png",
+      "properties": { "net_weight": 95 },
+      "measurements": [
+        {
+          "value": 127,
+          "saturation": 3,
+          "note": "Kompaktný a ľahký, ale menšia kapacita"
+        },
+        {
+          "value": 98,
+          "saturation": 2,
+          "note": "Perfektné pre cestovanie"
+        },
+        {
+          "value": 156,
+          "saturation": 5,
+          "note": "Rýchlo dosiahne limit"
+        }
+      ],
+      "design": 5,
+      "comfort": 5,
+      "durability": 2,
+      "description": "Ultraľahký variant pre mobilné použitie. Výborný dizajn, ale obmedzená kapacita."
+    },
+    {
+      "brand": "HeavyDuty Professional D3",
+      "link": "https://example.com/products/heavyduty-professional-d3",
+      "image": "/images/heavyduty_professional_d3.png",
+      "properties": { "net_weight": 380 },
+      "measurements": [
+        {
+          "value": 567,
+          "saturation": 2,
+          "note": "Obrovská kapacita, ale pomerne veľký"
+        },
+        {
+          "value": 623,
+          "saturation": 3,
+          "note": "Stále veľká rezerva"
+        },
+        {
+          "value": 789,
+          "saturation": 4,
+          "note": "Výborná výkonnosť aj pri vysokom zaťažení"
+        },
+        {
+          "value": 845,
+          "saturation": 5
+        }
+      ],
+      "design": 2,
+      "comfort": 2,
+      "durability": 5,
+      "description": "Profesionálne riešenie pre náročné aplikácie. Maximálna kapacita a odolnosť."
+    },
+    {
+      "brand": "SmartFlow Adaptive E1",
+      "link": "https://example.com/products/smartflow-adaptive-e1",
+      "image": "/images/smartflow_adaptive_e1.png",
+      "properties": { "net_weight": 180 },
+      "measurements": [
+        {
+          "value": 234,
+          "saturation": 2,
+          "note": "Adaptívne správanie, efektívne rozloženie"
+        },
+        {
+          "value": 278,
+          "saturation": 3,
+          "note": "Vynikajúce výsledky v rôznych podmienkach"
+        },
+        {
+          "value": 356,
+          "saturation": 4,
+          "note": "Konzistentné výsledky"
+        },
+        {
+          "value": 298,
+          "saturation": 3
+        }
+      ],
+      "design": 4,
+      "comfort": 4,
+      "durability": 3,
+      "description": "Inteligentné riešenie s adaptívnymi vlastnosťami. Vyvážený výkon vo všetkých kategóriách."
+    },
+    {
+      "brand": "QuickDry Instant F2",
+      "link": "https://example.com/products/quickdry-instant-f2",
+      "image": "/images/quickdry_instant_f2.png",
+      "properties": { "net_weight": 120 },
+      "measurements": [
+        {
+          "value": 145,
+          "saturation": 3,
+          "note": "Rýchla absorpcia, ale kratšia životnosť"
+        },
+        {
+          "value": 167,
+          "saturation": 4,
+          "note": "Dobrá pre krátkodobé použitie"
+        },
+        {
+          "value": 189,
+          "saturation": 5,
+          "note": "Rýchlo dosiahne maximum"
+        }
+      ],
+      "design": 3,
+      "comfort": 3,
+      "durability": 2,
+      "description": "Rýchlo pôsobiace riešenie pre okamžité použitie. Nie je vhodné pre dlhodobé nasadenie."
+    }
+  ]
+}
