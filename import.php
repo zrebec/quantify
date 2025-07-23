@@ -5,7 +5,8 @@ require_once 'src/ImportFromJSON.php';
 
 try {
     $dbPath = 'data/data.sqlite';
-    $jsonPath = 'data/init_data.json';
+    //$jsonPath = 'data/init_data.json';
+    $jsonPath = 'data/init.json';
 
     $db = new App\Database($dbPath);
     $db->initialize();
