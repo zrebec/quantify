@@ -1,4 +1,4 @@
-data/init_data.json
+data/init.json
 data/data.sqlite
 public/images
 vendor
