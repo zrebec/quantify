@@ -72,7 +72,7 @@ The application uses a simple data model with two main tables:
 
 1. **Entities** - Basic entity information
    - ID
-   - Brand (entity name)
+   - Name (entity name)
    - Net weight
    - Description
    - Design information

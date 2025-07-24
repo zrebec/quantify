@@ -1,19 +1,19 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
-	{{ entity.brand }} - Details
+	{{ entity.name }} - Details
 {% endblock %}
 
 {% block content %}
 	<div class="container">
-		{% include 'partials/breadcrumb.html.twig' with { current: entity.brand } %}
+		{% include 'partials/breadcrumb.html.twig' with { current: entity.name } %}
 
 		<div class="card">
 			<div class="card-header">
         		<h5 class="card-title">Entity Information</h5>
     		</div>
 			<div class="card-body">
-				<h1>{{ entity.brand }}
+				<h1>{{ entity.name }}
 					<a href="{{ entity.link }}" target="_blank" class="icon-link icon-link-href">
 						<img src="/assets/images/link.svg" alt="Link icon">
 					</a>

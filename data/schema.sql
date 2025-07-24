@@ -7,7 +7,7 @@ DROP TABLE IF EXISTS entity_images;
 -- Entities table to store basic entity information
 CREATE TABLE entities (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
-    brand VARCHAR(255) NOT NULL,             -- Entity brand/name
+    name VARCHAR(255) NOT NULL,              -- Entity name
     link VARCHAR(255) DEFAULT NULL,          -- Link to the entity
     image VARCHAR(255) DEFAULT NULL,         -- Image URL
     description TEXT,                        -- Full entity description

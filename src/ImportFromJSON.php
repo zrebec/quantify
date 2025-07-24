@@ -17,12 +17,12 @@ class ImportFromJSON {
 
         foreach ($data['entities'] as $entity) {
             $stmt = $this->db->prepare('
-                INSERT INTO entities (brand, link, image, description, design)
-                VALUES (:brand, :link, :image, :description, :design)
+                INSERT INTO entities (name, link, image, description, design)
+                VALUES (:name, :link, :image, :description, :design)
             ');
 
             $stmt->execute([
-                ':brand' => $entity['brand'],
+                ':name' => $entity['name'],
                 ':link' => $entity['link'],
                 ':image' => $entity['image'] ?? null,
                 ':description' => $entity['description'] ?? null,
@@ -35,7 +35,7 @@ class ImportFromJSON {
         $data = json_decode(file_get_contents($jsonPath), true);
 
         foreach ($data['entities'] as $entity) {
-            $entityId = $this->getEntityIdByBrand($entity['brand']);
+            $entityId = $this->getEntityIdByName($entity['name']);
 
             foreach ($entity['properties'] as $propertyName => $propertyValue) {
                 $stmt = $this->db->prepare('
@@ -56,7 +56,7 @@ class ImportFromJSON {
         $data = json_decode(file_get_contents($jsonPath), true);
 
         foreach ($data['entities'] as $entity) {
-            $entityId = $this->getEntityIdByBrand($entity['brand']);
+            $entityId = $this->getEntityIdByName($entity['name']);
 
             foreach ($entity['measurements'] as $measurement) {
                 $stmt = $this->db->prepare('
@@ -75,9 +75,9 @@ class ImportFromJSON {
         }
     }
 
-    private function getEntityIdByBrand($brand) {
-        $stmt = $this->db->prepare('SELECT id FROM entities WHERE brand = :brand');
-        $stmt->execute([':brand' => $brand]);
+    private function getEntityIdByName($name) {
+        $stmt = $this->db->prepare('SELECT id FROM entities WHERE name = :name');
+        $stmt->execute([':name' => $name]);
         return $stmt->fetchColumn();
     }
 

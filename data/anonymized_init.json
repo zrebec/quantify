@@ -8,7 +8,7 @@
   ],
   "entities": [
     {
-      "brand": "EcoSponge Premium A1",
+      "name": "EcoSponge Premium A1",
       "link": "https://example.com/products/ecosponge-premium-a1",
       "image": "/images/ecosponge_premium_a1.png",
       "properties": { "net_weight": 150 },
@@ -43,7 +43,7 @@
       "description": "Vysokovýkonná hubka s vynikajúcou absorpciou. Ideálna pre dlhodobé použitie."
     },
     {
-      "brand": "FlexiMax Standard B2",
+      "name": "FlexiMax Standard B2",
       "link": "https://example.com/products/fleximax-standard-b2",
       "image": "/images/fleximax_standard_b2.png",
       "properties": { "net_weight": 220 },
@@ -78,7 +78,7 @@
       "description": "Robustný produkt s výbornou trvanlivosťou. Vhodný pre náročné podmienky."
     },
     {
-      "brand": "UltraLite Compact C1",
+      "name": "UltraLite Compact C1",
       "link": "https://example.com/products/ultralite-compact-c1",
       "image": "/images/ultralite_compact_c1.png",
       "properties": { "net_weight": 95 },
@@ -105,7 +105,7 @@
       "description": "Ultraľahký variant pre mobilné použitie. Výborný dizajn, ale obmedzená kapacita."
     },
     {
-      "brand": "HeavyDuty Professional D3",
+      "name": "HeavyDuty Professional D3",
       "link": "https://example.com/products/heavyduty-professional-d3",
       "image": "/images/heavyduty_professional_d3.png",
       "properties": { "net_weight": 380 },
@@ -136,7 +136,7 @@
       "description": "Profesionálne riešenie pre náročné aplikácie. Maximálna kapacita a odolnosť."
     },
     {
-      "brand": "SmartFlow Adaptive E1",
+      "name": "SmartFlow Adaptive E1",
       "link": "https://example.com/products/smartflow-adaptive-e1",
       "image": "/images/smartflow_adaptive_e1.png",
       "properties": { "net_weight": 180 },
@@ -167,7 +167,7 @@
       "description": "Inteligentné riešenie s adaptívnymi vlastnosťami. Vyvážený výkon vo všetkých kategóriách."
     },
     {
-      "brand": "QuickDry Instant F2",
+      "name": "QuickDry Instant F2",
       "link": "https://example.com/products/quickdry-instant-f2",
       "image": "/images/quickdry_instant_f2.png",
       "properties": { "net_weight": 120 },

@@ -21,13 +21,13 @@ class Entity
     {
         $entities = $this->db->select('entities', [
             'id',
-            'brand',
+            'name',
             'link',
             'image',
             'description',
             'design'
         ], [
-            'ORDER' => Medoo::raw('brand COLLATE NOCASE ASC'),
+            'ORDER' => Medoo::raw('name COLLATE NOCASE ASC'),
         ]);
 
         foreach ($entities as &$entity) {
@@ -62,7 +62,7 @@ class Entity
     public function getEntityWithMeasurements(int $id): ?array {
         $entity = $this->db->get('entities', [
             'id',
-            'brand',
+            'name',
             'image',
             'link',
             'description',
@@ -151,7 +151,7 @@ class Entity
                 // Add to comparison chart data
                 if (!empty($entity['chart_data']['values'])) {
                     $dataset = [
-                        'label' => $entity['brand'], // Use brand for the label
+                        'label' => $entity['name'], // Use name for the label
                         'data' => $entity['chart_data']['values'], // Use chart_data values
                         'borderColor' => 'rgba(54, 162, 235, 1)', // Example color
                         'backgroundColor' => 'rgba(54, 162, 235, 0.2)', // Example color

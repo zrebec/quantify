@@ -11,13 +11,13 @@
           {% if entity.image %}
           <div class="card-image">
           <a href="/entity/{{ entity.id }}">
-            <img src="{{ entity.image }}" alt="{{ entity.brand }} image" class="entity-image">
+            <img src="{{ entity.image }}" alt="{{ entity.name }} image" class="entity-image">
           </a>
           </div>
           {% endif %}
 
           <div>
-            <h2>{{ entity.brand }}</h2>
+            <h2>{{ entity.name }}</h2>
             <h2><strong>{{ entity.properties.net_weight }} g</strong></h2>
             <h2>
             {% if entity.design > 0 %}
