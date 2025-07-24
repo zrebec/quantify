@@ -8,23 +8,23 @@ use Twig\TwigFunction;
  * Class ChartExtension
  * @package App\Twig
  *
- * This class provides custom Twig functions for chart colors and saturation.
+ * This class provides custom Twig functions for chart colors and level.
  */
 class ChartExtension extends AbstractExtension {
     public function getFunctions() {
         return [
             new TwigFunction('chart_colors', [$this, 'getChartColors']),
-            new TwigFunction('saturation_color', [$this, 'getSaturationColor']),
+            new TwigFunction('level_color', [$this, 'getLevelColor']),
         ];
     }
 
     /**
-     * Get the color based on saturation value.
+     * Get the color based on level value.
      *
-     * @param float $saturation The saturation value.
+     * @param float $level The level value.
      * @return string The color class.
      */
-    public function getSaturationColor(float $saturation): string {
+    public function getLevelColor(float $level): string {
         $colors = [
             1 => 'rgba(0, 128, 0, 0.8)',    // Green
             2 => 'rgba(0, 0, 255, 0.8)',    // Blue
@@ -32,7 +32,7 @@ class ChartExtension extends AbstractExtension {
             4 => 'rgba(128, 0, 128, 0.8)',  // Purple
             5 => 'rgba(255, 0, 0, 0.8)',    // Red
         ];
-        return $colors[$saturation] ?? 'rgba(0, 0, 0, 0.8)'; // Default to black if saturation is not found
+        return $colors[$level] ?? 'rgba(0, 0, 0, 0.8)'; // Default to black if level is not found
     }
 
     /**

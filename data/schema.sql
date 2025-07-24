@@ -34,8 +34,8 @@ CREATE TABLE entity_images (
 CREATE TABLE measurements (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     entity_id INTEGER NOT NULL,
-    value INTEGER NOT NULL,        -- Retention value
-    saturation INTEGER NOT NULL,        -- Saturation level
+    value INTEGER NOT NULL,        -- value
+    level INTEGER NOT NULL,        -- level
     note TEXT,                -- Additional notes
     date DATE NOT NULL DEFAULT '1970-01-01', -- Date of measurement
     FOREIGN KEY (entity_id) REFERENCES entities(id)

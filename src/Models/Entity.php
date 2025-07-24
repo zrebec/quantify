@@ -80,7 +80,7 @@ class Entity
         $results = $this->db->select('measurements', [
             'id',
             'value',
-            'saturation',
+            'level',
             'note'
         ], [
             'entity_id' => $id,
@@ -92,7 +92,7 @@ class Entity
             return [
                 'measurement_number' => $index + 1,
                 'result_value' => $result['value'],
-                'saturation' => $result['saturation'],
+                'level' => $result['level'],
                 'note' => $result['note'],
             ];
         }, $results, array_keys($results));

@@ -15,26 +15,26 @@
       "measurements": [
         {
           "value": 245,
-          "saturation": 4,
+          "level": 4,
           "note": "Veľmi dobrá absorpcia, dlho vydrží"
         },
         {
           "value": 189,
-          "saturation": 2,
+          "level": 2,
           "note": "Stále funkčné, ale už menej efektívne"
         },
         {
           "value": 298,
-          "saturation": 5,
+          "level": 5,
           "note": "Dosiahnutá maximálna kapacita"
         },
         {
           "value": 167,
-          "saturation": 2
+          "level": 2
         },
         {
           "value": 234,
-          "saturation": 3
+          "level": 3
         }
       ],
       "design": 4,
@@ -50,26 +50,26 @@
       "measurements": [
         {
           "value": 412,
-          "saturation": 3,
+          "level": 3,
           "note": "Pomerne efektívne, ale trochu ťažké"
         },
         {
           "value": 356,
-          "saturation": 2,
+          "level": 2,
           "note": "Dobre držiteľné, stabilné výsledky"
         },
         {
           "value": 489,
-          "saturation": 4,
+          "level": 4,
           "note": "Blíži sa k maximu, ale stále použiteľné"
         },
         {
           "value": 523,
-          "saturation": 5
+          "level": 5
         },
         {
           "value": 278,
-          "saturation": 1
+          "level": 1
         }
       ],
       "design": 3,
@@ -85,17 +85,17 @@
       "measurements": [
         {
           "value": 127,
-          "saturation": 3,
+          "level": 3,
           "note": "Kompaktný a ľahký, ale menšia kapacita"
         },
         {
           "value": 98,
-          "saturation": 2,
+          "level": 2,
           "note": "Perfektné pre cestovanie"
         },
         {
           "value": 156,
-          "saturation": 5,
+          "level": 5,
           "note": "Rýchlo dosiahne limit"
         }
       ],
@@ -112,22 +112,22 @@
       "measurements": [
         {
           "value": 567,
-          "saturation": 2,
+          "level": 2,
           "note": "Obrovská kapacita, ale pomerne veľký"
         },
         {
           "value": 623,
-          "saturation": 3,
+          "level": 3,
           "note": "Stále veľká rezerva"
         },
         {
           "value": 789,
-          "saturation": 4,
+          "level": 4,
           "note": "Výborná výkonnosť aj pri vysokom zaťažení"
         },
         {
           "value": 845,
-          "saturation": 5
+          "level": 5
         }
       ],
       "design": 2,
@@ -143,22 +143,22 @@
       "measurements": [
         {
           "value": 234,
-          "saturation": 2,
+          "level": 2,
           "note": "Adaptívne správanie, efektívne rozloženie"
         },
         {
           "value": 278,
-          "saturation": 3,
+          "level": 3,
           "note": "Vynikajúce výsledky v rôznych podmienkach"
         },
         {
           "value": 356,
-          "saturation": 4,
+          "level": 4,
           "note": "Konzistentné výsledky"
         },
         {
           "value": 298,
-          "saturation": 3
+          "level": 3
         }
       ],
       "design": 4,
@@ -174,17 +174,17 @@
       "measurements": [
         {
           "value": 145,
-          "saturation": 3,
+          "level": 3,
           "note": "Rýchla absorpcia, ale kratšia životnosť"
         },
         {
           "value": 167,
-          "saturation": 4,
+          "level": 4,
           "note": "Dobrá pre krátkodobé použitie"
         },
         {
           "value": 189,
-          "saturation": 5,
+          "level": 5,
           "note": "Rýchlo dosiahne maximum"
         }
       ],

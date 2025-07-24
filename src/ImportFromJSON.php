@@ -60,14 +60,14 @@ class ImportFromJSON {
 
             foreach ($entity['measurements'] as $measurement) {
                 $stmt = $this->db->prepare('
-                    INSERT INTO measurements (entity_id, value, saturation, note, date)
-                    VALUES (:entity_id, :value, :saturation, :note, :date)
+                    INSERT INTO measurements (entity_id, value, level, note, date)
+                    VALUES (:entity_id, :value, :level, :note, :date)
                 ');
 
                 $stmt->execute([
                     ':entity_id' => $entityId,
                     ':value' => $measurement['value'],
-                    ':saturation' => $measurement['saturation'],
+                    ':level' => $measurement['level'],
                     ':note' => $measurement['note'] ?? null,
                     ':date' => $measurement['date'] ?? '1970-01-01'
                 ]);

@@ -41,8 +41,8 @@
 						datasets: [{ 
 							label: 'Usage Capacity (ml)',
 							data: entity.chart_data.values,
-							backgroundColor: entity.results|map(result => saturation_color(result.saturation)),
-							borderColor: entity.results|map(result => saturation_color(result.saturation)),
+							backgroundColor: entity.results|map(result => level_color(result.level)),
+							borderColor: entity.results|map(result => level_color(result.level)),
 							borderWidth: 2,
 							type: 'bar',
 							fill: true,
@@ -66,7 +66,7 @@
 									<tr>
 										<th>Measurement</th>
 										<th>Usage Value (ml)</th>
-										<th>Saturation</th>
+										<th>Level</th>
 										<th>Comment</th>
 										<th>&nbsp;</th>
 									</tr>
@@ -76,7 +76,7 @@
 										<input type="hidden" id="entity_id" value="{{ entity.id }}">
 										<td><input type="text" id="measurement_number" class="text-input" placeholder="Would be datetime here" disabled></td>
 										<td><input type="text" id="result_value" class="text-input" placeholder="Result Value"></td>
-										<td><input type="text" id="saturation" class="text-input" placeholder="Saturation"></td>
+										<td><input type="text" id="level" class="text-input" placeholder="level"></td>
 										<td><input type="text" id="note" class="text-input full-width" placeholder="Note"></td>
 										<td>
 											<button id="add_result" class="button primary full-width">Add</button>
@@ -86,7 +86,7 @@
 										<tr>
 											<td>Measurement {{ result.measurement_number }}</td>
 											<td>{{ result.result_value }} ml</td>
-											<td>{{ result.saturation }}</td>
+											<td>{{ result.level }}</td>
 											<td>{{ result.note }}</td>
 											<td>
 												<button class="button danger full-width">Delete</button>
