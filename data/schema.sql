@@ -11,7 +11,8 @@ CREATE TABLE entities (
     link VARCHAR(255) DEFAULT NULL,          -- Link to the entity
     image VARCHAR(255) DEFAULT NULL,         -- Image URL
     description TEXT,                        -- Full entity description
-    design VARCHAR(50)                       -- Design information (e.g. "3/5")
+    design VARCHAR(50),                      -- Design information (e.g. "3/5")
+    reusability INTEGER NOT NULL DEFAULT 0   -- Reusability score (0-10)
 );
 
 CREATE TABLE entitiy_properties (

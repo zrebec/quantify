@@ -14,6 +14,8 @@
   --color-bg: #ffffff;
   --color-text: #222;
   --color-border: #ccc;
+  --color-bar-unfilled: #898989;
+  --color-bar-filled: #00ff00;
 
   --space-sm: 0.5rem;
   --space-md: 1rem;
@@ -428,4 +430,20 @@ body {
 
 .fa-not-rated::before {
   content: "💔";
+}
+
+.bars {
+  display: flex;
+  gap: 0.25rem;
+}
+
+.bar {
+  width: 0.9rem;
+  height: 10px;
+  background-color: var(--color-bar-unfilled);
+}
+
+.bar-filled {
+  background-color: var(--color-bar-filled);
+  transition: width 0.3s ease;
 }

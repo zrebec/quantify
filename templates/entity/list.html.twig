@@ -1,109 +1,137 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Quantify - Entity List{% endblock %}
-
-{% block content %}
-<div class="container entity-list wide">
-  <form id="compare-form" action="/compare" method="get">
-    <div class="entity-card">
-      {% for entity in entities %}
-        <div class="entity-card__entity">
-          {% if entity.image %}
-          <div class="card-image">
-          <a href="/entity/{{ entity.id }}">
-            <img src="{{ entity.image }}" alt="{{ entity.name }} image" class="entity-image">
-          </a>
-          </div>
-          {% endif %}
-
-          <div>
-            <h2>{{ entity.name }}</h2>
-            <h2><strong>{{ entity.properties.net_weight }} g</strong></h2>
-            <h2>
-            {% if entity.design > 0 %}
-              {% for i in range(0, entity.design  - 1) %}<i class="fa fa-rating-design"></i>{% endfor %}
-            {% else %}
-              <i class="fa fa-not-rated"></i>
-            {% endif %}
-            </h2>
-
-            <div class="entity-grid entity-grid--paired">
-              <div class="entity-pair">
-                <div class="entity-label">Counter</div>
-                <div class="entity-value">{{ entity.measurement_count|default(0) }}x</div>
-              </div>
-              <div class="entity-pair">
-                <div class="entity-label">MAX</div>
-                <div class="entity-value">{{ entity.max_capacity|default(0) }} ml</div>
-              </div>
-              <div class="entity-pair">
-                <div class="entity-label">AVG</div>
-                <div class="entity-value">{{ entity.average_capacity|number_format(0) }} ml</div>
-              </div>
-              <div class="entity-pair">
-                <div class="entity-label">SAFEUSE</div>
-                <div class="entity-value">
-                  {% if entity.safe_use > 0 %}
-                    {% for i in range(0, entity.safe_use - 1) %}
-                      <i class="fa fa-rating-safeuse"></i>
-                    {% endfor %}
-                  {% else %}
-                    <i class="fa fa-not-rated"></i>
-                  {% endif %}
-                </div>
-              </div>
-            </div>
-            {% if entity.description %}
-              <p>{{ entity.description }}</p>
-            {% endif %}
-          </div>
-
-          <div class="entity-card__actions">
-            <label class="button primary checkbox">
-              <input class="entity-select" type="checkbox" name="entity[]" value="{{ entity.id }}" id="entity-{{ entity.id }}">
-            </label>
-            <a href="/entity/{{ entity.id }}" class="button primary">View Details</a>
-          </div>
-        </div>
-      {% endfor %}
-    </div>
-
-    <div class="form-footer">
-      <button type="button" id="compare-btn" class="button primary" disabled>
-        Compare Selected Entities
-      </button>
-    </div>
-  </form>
-</div>
+{% block title %}Quantify - Entity List
 {% endblock %}
 
+{% block content %}
+	<div class="container entity-list wide">
+		<form id="compare-form" action="/compare" method="get">
+			<div class="entity-card">
+				{% for entity in entities %}
+					<div class="entity-card__entity">
+						{% if entity.image %}
+							<div class="card-image">
+								<a href="/entity/{{ entity.id }}">
+									<img src="{{ entity.image }}" alt="{{ entity.name }} image" class="entity-image">
+								</a>
+							</div>
+						{% endif %}
 
+						<div>
+							<h2>{{ entity.name }}</h2>
+							<h2>
+								<strong>{{ entity.properties.net_weight }}
+									g</strong>
+							</h2>
+
+							<div class="entity-grid entity-grid--paired">
+								<div class="entity-pair">
+									<div class="entity-label">Counter</div>
+									<div class="entity-value">{{ entity.measurement_count|default(0) }}x</div>
+								</div>
+								<div class="entity-pair">
+									<div class="entity-label">MAX</div>
+									<div class="entity-value">{{ entity.max_capacity|default(0) }}
+										ml</div>
+								</div>
+								<div class="entity-pair">
+									<div class="entity-label">AVG</div>
+									<div class="entity-value">{{ entity.average_capacity|number_format(0) }}
+										ml</div>
+								</div>
+								<div class="entity-pair">
+									<div class="entity-label">DESIGN</div>
+									<div class="entity-value">
+										{% if entity.design > 0 %}
+											{% for i in range(0, entity.design  - 1) %}
+												<i class="fa fa-rating-design"></i>
+											{% endfor %}
+										{% else %}
+											<i class="fa fa-not-rated"></i>
+										{% endif %}
+									</div>
+								</div>
+
+							</div>
+
+							<div style="display: grid; grid-template-columns: 30% 70%; gap: 0.25rem; height: 30px; margin-bottom: 30px; align-items: center;">
+								<div>SAFEUSE</div>
+								<div>
+
+									<div class="bars">
+										{% for i in range(1, 10) %}
+											{% if entity.safe_use >= i %}
+												<div class="bar bar-filled"></div>
+											{% else %}
+												<div class="bar"></div>
+											{% endif %}
+										{% endfor %}
+									</div>
+
+								</div>
+								<div style="">REUSABILITY</div>
+								<div>
+
+									<div class="bars">
+										{% for i in range(1, 10) %}
+											{% if entity.reusability * 2 >= i %}
+												<div class="bar bar-filled"></div>
+											{% else %}
+												<div class="bar"></div>
+											{% endif %}
+										{% endfor %}
+									</div>
+
+								</div>
+							</div>
+							{% if entity.description %}
+								<p>{{ entity.description }}</p>
+							{% endif %}
+						</div>
+						<div class="entity-card__actions">
+							<label class="button primary checkbox">
+								<input class="entity-select" type="checkbox" name="entity[]" value="{{ entity.id }}" id="entity-{{ entity.id }}">
+							</label>
+							<a href="/entity/{{ entity.id }}" class="button primary">View Details</a>
+						</div>
+					</div>
+				{% endfor %}
+			</div>
+
+			<div class="form-footer">
+				<button type="button" id="compare-btn" class="button primary" disabled>
+					Compare Selected Entities
+				</button>
+			</div>
+		</form>
+	</div>
+{% endblock %}
 {% block scripts %}
-<script>
-  document.addEventListener('DOMContentLoaded', function () {
-    const checkboxes = document.querySelectorAll('.entity-select');
-    const compareBtn = document.getElementById('compare-btn');
-    const form = document.getElementById('compare-form');
+	<script>
+		document.addEventListener('DOMContentLoaded', function () {
+const checkboxes = document.querySelectorAll('.entity-select');
+const compareBtn = document.getElementById('compare-btn');
+const form = document.getElementById('compare-form');
 
-    function updateCompareButton() {
-      const checked = document.querySelectorAll('.entity-select:checked');
-      compareBtn.disabled = checked.length < 2;
+function updateCompareButton() {
+const checked = document.querySelectorAll('.entity-select:checked');
+compareBtn.disabled = checked.length < 2;
 
-      if (checked.length > 5) {
-        alert('Please select a maximum of 5 entities to compare.');
-        this.checked = false;
-      }
-    }
+if (checked.length > 5) {
+alert('Please select a maximum of 5 entities to compare.');
+this.checked = false;
+}
+}
 
-    checkboxes.forEach(checkbox => {
-      checkbox.addEventListener('change', updateCompareButton);
-    });
+checkboxes.forEach(checkbox => {
+checkbox.addEventListener('change', updateCompareButton);
+});
 
-    compareBtn.addEventListener('click', function () {
-      const checked = document.querySelectorAll('.entity-select:checked');
-      const ids = Array.from(checked).map(cb => cb.value).join(',');
-      window.location.href = '/compare?ids=' + ids;
-    });
-  });
-</script>
+compareBtn.addEventListener('click', function () {
+const checked = document.querySelectorAll('.entity-select:checked');
+const ids = Array.from(checked).map(cb => cb.value).join(',');
+window.location.href = '/compare?ids=' + ids;
+});
+});
+	</script>
 {% endblock %}

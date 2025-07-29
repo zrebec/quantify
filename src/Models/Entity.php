@@ -25,7 +25,8 @@ class Entity
             'link',
             'image',
             'description',
-            'design'
+            'design',
+            'reusability'
         ], [
             'ORDER' => Medoo::raw('name COLLATE NOCASE ASC'),
         ]);
@@ -66,7 +67,8 @@ class Entity
             'image',
             'link',
             'description',
-            'design'
+            'design',
+            'reusability'
         ], [
             'id' => $id
         ]);
