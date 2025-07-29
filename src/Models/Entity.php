@@ -49,7 +49,7 @@ class Entity
         
         $entity['properties'] = $this->getEntityProperties($entity['id']);
         $entity['measurement_count'] = count($measurementValues);
-        $entity['max_capacity'] = $measurementValues ? max($measurementValues) : 0;
+        $entity['max_capacity'] = $measurementValues ? max($measurementValues) - $entity['properties']['net_weight'] : 0;
         $entity['average_capacity'] = $measurementValues ? floor(array_sum($measurementValues) / count($measurementValues)) - $entity['properties']['net_weight'] : 0;
         $entity['safe_use'] = floor($entity['average_capacity'] / 250);
     }
